@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>TFM · Estado del Proyecto</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f6f8fb;
+    color: #222;
+}
+header {
+    background: #1f4e79;
+    color: white;
+    padding: 28px 45px;
+}
+header h1 { margin: 0; }
+header p { margin-bottom: 0; }
+
+.tabs {
+    overflow: hidden;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+    padding-left: 35px;
+}
+.tabs button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 16px 22px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #1f4e79;
+}
+.tabs button:hover {
+    background-color: #eef4fb;
+}
+.tabs button.active {
+    background-color: #1f4e79;
+    color: white;
+}
+
+.tabcontent {
+    display: none;
+    padding: 30px 45px;
+}
+.card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 22px;
+}
+h2 { color: #1f4e79; }
+h3 { color: #2f75b5; }
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background: white;
+    margin-top: 12px;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    vertical-align: top;
+}
+th {
+    background-color: #eef4fb;
+}
+
+details {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin: 14px 0;
+    padding: 14px 18px;
+}
+summary {
+    font-weight: bold;
+    color: #1f4e79;
+    cursor: pointer;
+}
+
+.status-ok { color: #1b7f3a; font-weight: bold; }
+.status-progress { color: #b36b00; font-weight: bold; }
+.status-pending { color: #777; font-weight: bold; }
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 13px;
+}
+.badge-core { background: #dff3e6; color: #1b7f3a; }
+.badge-support { background: #fff0d6; color: #b36b00; }
+.badge-pending { background: #eeeeee; color: #555; }
+
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 15px;
+}
+.kpi {
+    background: #eef4fb;
+    border-radius: 10px;
+    padding: 16px;
+    border: 1px solid #d7e5f4;
+}
+.kpi .value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1f4e79;
+}
+.kpi .label {
+    font-size: 13px;
+    margin-top: 6px;
+}
+.note {
+    background: #fff8e8;
+    border-left: 5px solid #d18b00;
+    padding: 12px 14px;
+    margin-top: 12px;
+}
+</style>
+
+<script>
+function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+</script>
+</head>
+
+<body>
+
+<header>
+<h1>TFM · Impacto económico de desastres naturales en España</h1>
+<p>Documento vivo de seguimiento del proyecto: fuentes de datos, decisiones, estado y próximos pasos.</p>
+</header>
+
+<div class="tabs">
+<button class="tablink active" onclick="openTab(event, 'resumen')">Resumen</button>
+<button class="tablink" onclick="openTab(event, 'datos')">Datos</button>
+<button class="tablink" onclick="openTab(event, 'cnih')">CNIH</button>
+<button class="tablink" onclick="openTab(event, 'modelos')">Modelos</button>
+<button class="tablink" onclick="openTab(event, 'roadmap')">Roadmap</button>
+<button class="tablink" onclick="openTab(event, 'descargas')">Descargas</button>
+</div>
+
+<!-- ======================================================= -->
+<!-- RESUMEN -->
+<!-- ======================================================= -->
+
+<div id="resumen" class="tabcontent" style="display:block">
+
+<div class="card">
+<h2>Resumen ejecutivo</h2>
+<p>
+El proyecto busca desarrollar una plataforma de análisis y predicción del impacto económico de fenómenos naturales extraordinarios en España.
+El enfoque actual consiste en integrar varias fuentes públicas: inundaciones, incendios, indemnizaciones históricas, meteorología y variables de exposición territorial.
+</p>
+<p>
+El análisis no se apoya en una única base de datos. CNIH se trabaja como fuente principal para inundaciones, EGIF será la fuente principal para incendios y CCS funcionará como referencia económica agregada y validación aseguradora.
+</p>
+</div>
+
+<div class="card">
+<h2>Estado actual del proyecto</h2>
+<table>
+<tr><th>Bloque</th><th>Estado</th><th>Comentario</th></tr>
+<tr>
+<td>CNIH</td>
+<td class="status-ok">Dataset base construido</td>
+<td>Access exportado a CSV, tablas críticas analizadas y dataset evento–municipio generado.</td>
+</tr>
+<tr>
+<td>CCS</td>
+<td class="status-progress">Revisado inicialmente</td>
+<td>Útil como validación económica agregada y contexto asegurador.</td>
+</tr>
+<tr>
+<td>EGIF</td>
+<td class="status-pending">Pendiente</td>
+<td>Pendiente unificación de ficheros de incendios.</td>
+</tr>
+<tr>
+<td>AEMET / NOAA</td>
+<td class="status-pending">Pendiente</td>
+<td>Pendiente decidir fuente meteorológica.</td>
+</tr>
+<tr>
+<td>INE / exposición</td>
+<td class="status-pending">Pendiente</td>
+<td>Pendiente incorporar población y exposición territorial.</td>
+</tr>
+</table>
+</div>
+
+</div>
+
+<!-- ======================================================= -->
+<!-- DATOS -->
+<!-- ======================================================= -->
+
+<div id="datos" class="tabcontent">
+
+<div class="card">
+<h2>Datos usados y papel de cada fuente</h2>
+<p>
+Esta sección resume qué bases de datos forman parte del planteamiento actual, por qué se usan y qué papel tendrán dentro del TFM.
+</p>
+
+<table>
+<tr><th>Fuente</th><th>Decisión</th><th>Por qué la usamos</th><th>Papel en el proyecto</th><th>Estado</th></tr>
+<tr>
+<td><b>CNIH</b></td>
+<td><span class="badge badge-core">Usar</span></td>
+<td>Contiene eventos históricos de inundación, daños económicos por municipio y variables hidrológicas.</td>
+<td>Fuente principal para inundaciones.</td>
+<td class="status-ok">Dataset base construido</td>
+</tr>
+<tr>
+<td><b>EGIF</b></td>
+<td><span class="badge badge-core">Usar</span></td>
+<td>Aporta gran volumen de registros de incendios forestales.</td>
+<td>Fuente principal para incendios.</td>
+<td class="status-pending">Pendiente unificación</td>
+</tr>
+<tr>
+<td><b>CCS</b></td>
+<td><span class="badge badge-support">Apoyo</span></td>
+<td>Aporta indemnizaciones reales agregadas por riesgos extraordinarios.</td>
+<td>Validación económica y contexto asegurador.</td>
+<td class="status-progress">Revisado inicialmente</td>
+</tr>
+<tr>
+<td><b>AEMET / NOAA</b></td>
+<td><span class="badge badge-pending">Pendiente</span></td>
+<td>Servirá para enriquecer eventos con lluvia, temperatura o viento.</td>
+<td>Variables explicativas externas.</td>
+<td class="status-pending">Pendiente decidir fuente</td>
+</tr>
+<tr>
+<td><b>INE</b></td>
+<td><span class="badge badge-pending">Pendiente</span></td>
+<td>Permite normalizar el impacto económico por población y exposición territorial.</td>
+<td>Variable de exposición.</td>
+<td class="status-pending">Pendiente descarga</td>
+</tr>
+</table>
+</div>
+
+<details open>
+<summary>Detalle CNIH</summary>
+<p>
+El CNIH se ha trabajado como fuente principal para inundaciones. La base original estaba en formato Access y se ha exportado a CSV mediante Python.
+</p>
+<p>
+Ya se ha construido un dataset base a nivel <b>evento–municipio</b>, incorporando información temporal, territorial, económica y de trazabilidad.
+El siguiente paso es consolidar variables hidrológicas como calado, caudal y ARPSI.
+</p>
+</details>
+
+<details>
+<summary>Detalle EGIF</summary>
+<p>
+EGIF será la fuente principal para incendios forestales. Aporta registros históricos de incendios, superficie afectada, localización, fechas y variables del siniestro.
+</p>
+<p>
+Estado actual: pendiente de unificar los ficheros en una única tabla de trabajo.
+</p>
+</details>
+
+<details>
+<summary>Detalle CCS</summary>
+<p>
+El CCS aporta información económica real vinculada a indemnizaciones por riesgos extraordinarios. Su uso previsto es como validación económica agregada y referencia aseguradora.
+</p>
+</details>
+
+<details>
+<summary>Fuentes pendientes</summary>
+<p>
+AEMET/NOAA, INE, SNCZI, IGN y Catastro se consideran fuentes de enriquecimiento. No forman parte del núcleo inicial, pero pueden mejorar la calidad del dataset final de modelado.
+</p>
+</details>
+
+</div>
+
+<!-- ======================================================= -->
+<!-- CNIH -->
+<!-- ======================================================= -->
+
+<div id="cnih" class="tabcontent">
+
+<div class="card">
+<h2>CNIH · Estado del trabajo</h2>
+<p>
+La fase CNIH ha pasado de inventario a construcción de dataset. Ya no solo sabemos qué tablas existen: hemos identificado claves, variable económica principal y una primera estructura de dataset base.
+</p>
+
+<div class="kpi-grid">
+<div class="kpi"><div class="value">7.713</div><div class="label">registros en dataset base</div></div>
+<div class="kpi"><div class="value">46</div><div class="label">variables iniciales</div></div>
+<div class="kpi"><div class="value">2.837</div><div class="label">municipios con daño económico</div></div>
+<div class="kpi"><div class="value">675</div><div class="label">eventos con detalle municipal</div></div>
+</div>
+</div>
+
+<details open>
+<summary>Estado actual del análisis CNIH</summary>
+<table>
+<tr><th>Actividad</th><th>Estado</th><th>Comentario</th></tr>
+<tr>
+<td>Conversión Access → CSV</td>
+<td class="status-ok">Completado</td>
+<td>Las tablas del Access se exportaron correctamente a CSV.</td>
+</tr>
+<tr>
+<td>Inventario de tablas</td>
+<td class="status-ok">Completado</td>
+<td>Se revisaron las tablas disponibles y se priorizaron las útiles.</td>
+</tr>
+<tr>
+<td>Análisis exploratorio inicial</td>
+<td class="status-ok">Completado</td>
+<td>Se identificaron claves, nulos, cobertura económica y distribución de indemnizaciones.</td>
+</tr>
+<tr>
+<td>Construcción del dataset base</td>
+<td class="status-ok">Completado</td>
+<td>Dataset base CNIH generado a nivel evento–municipio.</td>
+</tr>
+<tr>
+<td>Enriquecimiento con calado, caudal y ARPSI</td>
+<td class="status-progress">En curso</td>
+<td>Estas variables se están incorporando para medir severidad física y contexto territorial.</td>
+</tr>
+</table>
+</details>
+
+<details open>
+<summary>Principales conclusiones</summary>
+<ul>
+<li>Se ha identificado <b>CE_COD_EVENTO</b> como clave principal para relacionar las tablas del CNIH.</li>
+<li>La tabla <b>CNIH_DAÑO_ECONOMICO_MUNICIPIO</b> es la fuente económica más útil gracias a la variable <b>CDEM_INDEMNIZACION_CCS</b>.</li>
+<li>El dataset base integra información temporal, territorial, económica, social y de trazabilidad.</li>
+<li>La información económica municipal cubre <b>7.713 registros</b>, correspondientes a <b>675 eventos</b> y <b>2.837 municipios</b>.</li>
+<li>Las indemnizaciones tienen una distribución coherente con fenómenos extremos: muchos importes moderados y pocos eventos de gran impacto.</li>
+<li>CNIH se considera fuente principal para inundaciones, pero el modelo final deberá integrarse con CCS, EGIF, AEMET/NOAA, INE y otras fuentes territoriales.</li>
+</ul>
+</details>
+
+<details>
+<summary>Dataset base generado</summary>
+<table>
+<tr><th>Métrica</th><th>Resultado</th></tr>
+<tr><td>Nombre de trabajo</td><td><b>dataset_base_unificado_cnih.csv</b></td></tr>
+<tr><td>Granularidad</td><td>Evento + municipio</td></tr>
+<tr><td>Registros</td><td>7.713</td></tr>
+<tr><td>Variables</td><td>46</td></tr>
+<tr><td>Variable económica principal</td><td>indemnizacion_ccs_eur</td></tr>
+<tr><td>Clave de unión</td><td>CE_COD_EVENTO</td></tr>
+<tr><td>Siguiente paso</td><td>Analizar EGIF</td></tr>
+<tr><td>Estado</td><td class="status-ok">Disponible para integración posterior</td></tr>
+</table>
+</details>
+
+<details>
+<summary>Variables que se están incorporando</summary>
+<table>
+<tr><th>Variable / tabla</th><th>Qué aporta</th><th>Justificación</th><th>Estado</th></tr>
+<tr>
+<td><b>CNIH_CALADO_SIGNIFICATIVO</b></td>
+<td>Profundidad alcanzada por el agua.</td>
+<td>Permite medir la severidad física de la inundación.</td>
+<td class="status-progress">En incorporación</td>
+</tr>
+<tr>
+<td><b>CNIH_CAUDAL_PUNTA</b></td>
+<td>Caudal máximo y posible periodo de retorno.</td>
+<td>Ayuda a caracterizar la intensidad hidrológica del evento.</td>
+<td class="status-progress">En incorporación</td>
+</tr>
+<tr>
+<td><b>CNIH_EVENTO_ARPSI</b></td>
+<td>Relación con áreas de riesgo potencial significativo de inundación.</td>
+<td>Aporta contexto territorial de riesgo.</td>
+<td class="status-progress">En incorporación</td>
+</tr>
+</table>
+</details>
+
+<details>
+<summary>Detalle técnico de tablas CNIH</summary>
+<table>
+<tr><th>Nivel</th><th>Tabla</th><th>Uso actual</th></tr>
+<tr><td>Base</td><td>CNIH_EVENTO</td><td>Identificación, fecha, demarcación y descripción de eventos.</td></tr>
+<tr><td>Económica</td><td>CNIH_DAÑO_ECONOMICO_MUNICIPIO</td><td>Indemnización CCS por municipio afectado.</td></tr>
+<tr><td>Social</td><td>CNIH_DAÑO_PERSONA_MUNICIPIO</td><td>Víctimas, evacuados y daños personales.</td></tr>
+<tr><td>Hidrológica</td><td>CNIH_CALADO_SIGNIFICATIVO</td><td>Profundidad de inundación agregable por evento.</td></tr>
+<tr><td>Hidrológica</td><td>CNIH_CAUDAL_PUNTA</td><td>Caudal máximo agregable por evento.</td></tr>
+<tr><td>Territorial</td><td>CNIH_EVENTO_ARPSI</td><td>Zonas oficiales de riesgo de inundación.</td></tr>
+<tr><td>Auxiliar</td><td>Taux_Municipios / Taux_Provincias</td><td>Normalización y trazabilidad territorial.</td></tr>
+</table>
+</details>
+
+<details>
+<summary>Riesgos y limitaciones detectados</summary>
+<ul>
+<li>La información económica municipal solo está disponible para una parte de los eventos totales.</li>
+<li>Algunas variables hidrológicas de la tabla principal presentan una elevada proporción de nulos.</li>
+<li>El dataset CNIH solo cubre inundaciones; no debe confundirse con el dataset final del TFM.</li>
+<li>Será necesario complementar CNIH con EGIF, CCS, meteorología y exposición territorial.</li>
+</ul>
+</details>
+
+<details>
+<summary>Próximos pasos CNIH</summary>
+<ol>
+<li>Validar la cobertura real de las variables de calado, caudal y ARPSI tras su incorporación.</li>
+<li>Generar una versión estable del dataset base CNIH.</li>
+<li>Documentar qué variables pasan al dataset final y cuáles quedan descartadas.</li>
+<li>Preparar el análisis de EGIF para construir una base equivalente de incendios.</li>
+</ol>
+</details>
+
+</div>
+
+<!-- ======================================================= -->
+<!-- MODELOS -->
+<!-- ======================================================= -->
+
+<div id="modelos" class="tabcontent">
+
+<div class="card">
+<h2>Diseño preliminar de modelos</h2>
+<p>
+El modelado no se hará únicamente con CNIH. CNIH será la base de inundaciones, pero el dataset final deberá integrar varias fuentes.
+</p>
+<table>
+<tr><th>Modelo</th><th>Objetivo</th><th>Fuentes esperadas</th><th>Algoritmos posibles</th><th>Estado</th></tr>
+<tr>
+<td>Modelo 1</td>
+<td>Identificar perfiles territoriales de riesgo.</td>
+<td>CNIH, EGIF, CCS, INE</td>
+<td>K-Means / clustering</td>
+<td class="status-pending">Pendiente</td>
+</tr>
+<tr>
+<td>Modelo 2</td>
+<td>Predecir impacto económico esperado.</td>
+<td>CNIH, EGIF, AEMET/NOAA, INE, CCS</td>
+<td>Random Forest / XGBoost</td>
+<td class="status-pending">Pendiente</td>
+</tr>
+<tr>
+<td>Modelo 3</td>
+<td>Construir un índice de riesgo futuro por territorio.</td>
+<td>Dataset integrado final</td>
+<td>Modelo predictivo + score final</td>
+<td class="status-pending">Pendiente</td>
+</tr>
+</table>
+</div>
+
+</div>
+
+<!-- ======================================================= -->
+<!-- ROADMAP -->
+<!-- ======================================================= -->
+
+<div id="roadmap" class="tabcontent">
+
+<div class="card">
+<h2>Roadmap inmediato</h2>
+<table>
+<tr><th>Tarea</th><th>Prioridad</th><th>Estado</th></tr>
+<tr><td>Cerrar dataset base CNIH con calado, caudal y ARPSI.</td><td>Alta</td><td class="status-progress">En curso</td></tr>
+<tr><td>Unificar EGIF.</td><td>Alta</td><td class="status-pending">Pendiente</td></tr>
+<tr><td>Revisar CCS con foco en hoja ANEXO.</td><td>Media</td><td class="status-pending">Pendiente</td></tr>
+<tr><td>Decidir fuente meteorológica.</td><td>Media</td><td class="status-pending">Pendiente</td></tr>
+<tr><td>Incorporar INE / exposición territorial.</td><td>Media</td><td class="status-pending">Pendiente</td></tr>
+<tr><td>Definir estructura del dataset final de modelado.</td><td>Alta</td><td class="status-pending">Pendiente</td></tr>
+</table>
+</div>
+
+</div>
+
+<div id="descargas" class="tabcontent">
+<div class="card">
+<h2>Descargas</h2>
+<p>Archivos generados en outputs para que el equipo pueda trabajar con ellos.</p>
+
+<table>
+<tr><th>Archivo</th><th>Uso</th><th>Descarga</th></tr>
+<tr>
+<td>dataset_base_unificado_cnih.csv</td>
+<td>Dataset base CNIH a nivel evento–municipio.</td>
+<td><a href="dataset_base_unificado_cnih.csv" download>Descargar</a></td>
+</tr>
+<tr>
+<td>resumen_cnih.json</td>
+<td>Resumen automático usado para actualizar el HTML.</td>
+<td><a href="resumen_cnih.json" download>Descargar</a></td>
+</tr>
+</table>
+</div>
+</div>
+
+</body>
+</html>
