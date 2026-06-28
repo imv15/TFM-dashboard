@@ -152,7 +152,7 @@ function openTab(evt, tabName) {
 <header>
 <h1>TFM · Impacto económico de desastres naturales en España</h1>
 <p>Portal automático de seguimiento del proyecto: datos, avances, modelos y descargas.</p>
-<p><b>Última actualización:</b> 28/06/2026 13:14</p>
+<p><b>Última actualización:</b> 28/06/2026 16:45</p>
 </header>
 
 <div class="tabs">
@@ -226,15 +226,90 @@ function openTab(evt, tabName) {
             </table>
         </div>
 
+
         <div class="card">
             <h2>Fuentes previstas</h2>
             <table>
-                <tr><th>Fuente</th><th>Papel en el proyecto</th><th>Estado</th></tr>
-                <tr><td>CNIH</td><td>Fuente principal para inundaciones.</td><td class="status-ok">En construcción</td></tr>
-                <tr><td>EGIF</td><td>Fuente principal para incendios forestales.</td><td class="status-pending">Pendiente</td></tr>
-                <tr><td>CCS</td><td>Validación económica agregada.</td><td class="status-progress">Revisado inicialmente</td></tr>
-                <tr><td>GHCN / AEMET</td><td>Variables meteorológicas.</td><td class="status-progress">Exploración inicial</td></tr>
-                <tr><td>INE</td><td>Población y exposición territorial.</td><td class="status-pending">Pendiente</td></tr>
+                <tr>
+                    <th>Fuente</th>
+                    <th>Papel en el proyecto</th>
+                    <th>Origen de los datos</th>
+                    <th>Descargada</th>
+                    <th>Estado</th>
+                </tr>
+                
+                    <tr>
+                        <td>CNIH</td>
+                        <td>Fuente principal para inundaciones.</td>
+                        <td>
+                            <a href="https://www.miteco.gob.es/es/agua/temas/gestion-de-los-riesgos-de-inundacion/cnih.html" target="_blank">
+                                🔗 Portal CNIH (MITECO)
+                            </a>
+                        </td>
+                        <td>Sí</td>
+                        <td class="status-ok">En construcción</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>EGIF / Copernicus</td>
+                        <td>Fuente principal para incendios forestales.</td>
+                        <td>
+                            <a href="https://forest-fire.emergency.copernicus.eu/" target="_blank">
+                                🔗 Copernicus EFFIS
+                            </a>
+                        </td>
+                        <td>Pendiente</td>
+                        <td class="status-pending">Pendiente</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Incendios MITECO</td>
+                        <td>Estadísticas oficiales de incendios forestales en España.</td>
+                        <td>
+                            <a href="https://www.miteco.gob.es/es/biodiversidad/temas/incendios-forestales/estadisticas-datos.html" target="_blank">
+                                🔗 MITECO - Estadísticas incendios
+                            </a>
+                        </td>
+                        <td>Pendiente</td>
+                        <td class="status-pending">Pendiente</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>CCS</td>
+                        <td>Validación económica agregada.</td>
+                        <td>
+                            <a href="https://www.consorseguros.es/" target="_blank">
+                                🔗 Consorcio de Compensación de Seguros
+                            </a>
+                        </td>
+                        <td>Explorada</td>
+                        <td class="status-progress">Revisado inicialmente</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>GHCN / NOAA</td>
+                        <td>Variables meteorológicas.</td>
+                        <td>
+                            <a href="https://www.ncei.noaa.gov/products/land-based-station/global-historical-climatology-network-daily" target="_blank">
+                                🔗 NOAA GHCN Daily
+                            </a>
+                        </td>
+                        <td>Sí</td>
+                        <td class="status-progress">Exploración inicial</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>INE</td>
+                        <td>Población y exposición territorial.</td>
+                        <td>
+                            <a href="https://www.ine.es/" target="_blank">
+                                🔗 Instituto Nacional de Estadística
+                            </a>
+                        </td>
+                        <td>Pendiente</td>
+                        <td class="status-pending">Pendiente</td>
+                    </tr>
+                    
             </table>
         </div>
 
