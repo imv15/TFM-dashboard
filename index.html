@@ -151,11 +151,11 @@ function openTab(evt, tabName) {
 
 <header>
 <h1>TFM · Impacto económico de desastres naturales en España</h1>
-<p>Portal automático de seguimiento del proyecto: datos, avances, modelos, roadmap y descargas.</p>
+<p>Portal automático de seguimiento del proyecto: datos, avances, modelos y descargas.</p>
 </header>
 
 <div class="tabs">
-<button class="tablink active" onclick="openTab(event, 'inicio')">Inicio</button><button class="tablink" onclick="openTab(event, 'proyecto')">Proyecto</button><button class="tablink" onclick="openTab(event, 'datos')">Datos</button><button class="tablink" onclick="openTab(event, 'cnih')">CNIH</button><button class="tablink" onclick="openTab(event, 'modelos')">Modelos</button><button class="tablink" onclick="openTab(event, 'roadmap')">Roadmap</button><button class="tablink" onclick="openTab(event, 'descargas')">Descargas</button>
+<button class="tablink active" onclick="openTab(event, 'inicio')">Inicio</button><button class="tablink" onclick="openTab(event, 'proyecto')">Proyecto</button><button class="tablink" onclick="openTab(event, 'datos')">Datos</button><button class="tablink" onclick="openTab(event, 'cnih')">CNIH</button><button class="tablink" onclick="openTab(event, 'modelos')">Modelos</button><button class="tablink" onclick="openTab(event, 'descargas')">Descargas</button>
 </div>
 
 
@@ -170,17 +170,39 @@ function openTab(evt, tabName) {
             <p>
             Este portal se actualiza a partir de resúmenes generados por los notebooks. Los textos de análisis, rankings y variables clave proceden de archivos JSON internos.
             </p>
-            <p><b>Última actualización:</b> 28/06/2026 12:13</p>
+            <p><b>Última actualización:</b> 28/06/2026 12:22</p>
         </div>
 
-        <div class="card">
-            <h2>Estado del portal</h2>
-            <div class="kpi-grid">
-                <div class="kpi"><div class="value">1</div><div class="label">fuentes con resumen</div></div>
-                <div class="kpi"><div class="value">2</div><div class="label">archivos descargables</div></div>
-                <div class="kpi"><div class="value">0/3</div><div class="label">modelos completados</div></div>
-                <div class="kpi"><div class="value">Auto</div><div class="label">portal generado por Python</div></div>
-            </div>
+            <div class="card">
+            <h2>Roadmap simplificado</h2>
+            <table>
+            <tr><th>Fase</th><th>Estado</th><th>Comentario</th></tr>
+            <tr>
+            <td>1. Construcción base CNIH</td>
+            <td class="status-ok">Completado</td>
+            <td>Dataset base de inundaciones generado y disponible en descargas.</td>
+            </tr>
+            <tr>
+            <td>2. Enriquecimiento territorial y meteorológico</td>
+            <td class="status-progress">En curso</td>
+            <td>Validación de variables de localización, GHCN/AEMET, calado, caudal y ARPSI.</td>
+            </tr>
+            <tr>
+            <td>3. Incorporación de nuevas fuentes</td>
+            <td class="status-pending">Siguiente paso</td>
+            <td>EGIF, CCS e INE se incorporarán después de cerrar la base CNIH.</td>
+            </tr>
+            <tr>
+            <td>4. Dataset final de modelado</td>
+            <td class="status-pending">Pendiente</td>
+            <td>Unificación de fuentes para construir variables predictivas.</td>
+            </tr>
+            <tr>
+            <td>5. Modelado</td>
+            <td class="status-pending">Pendiente</td>
+            <td>Segmentación territorial, predicción de impacto económico e índice de riesgo.</td>
+            </tr>
+            </table>
         </div>
 
         <div class="card">
@@ -191,7 +213,6 @@ function openTab(evt, tabName) {
                 <tr><td>Datos</td><td>Fuentes consideradas y estado de cada una.</td></tr>
                 <tr><td>Fuentes dinámicas</td><td>Una pestaña por cada resumen generado desde notebooks.</td></tr>
                 <tr><td>Modelos</td><td>Diseño preliminar de los modelos previstos.</td></tr>
-                <tr><td>Roadmap</td><td>Próximas tareas y estado del avance.</td></tr>
                 <tr><td>Descargas</td><td>Archivos preparados para trabajar, sin incluir JSON internos.</td></tr>
             </table>
         </div>
@@ -333,20 +354,6 @@ function openTab(evt, tabName) {
                 <tr><td>Modelo 1</td><td>Identificar perfiles territoriales de riesgo.</td><td>CNIH, EGIF, CCS, INE</td><td class="status-pending">Pendiente</td></tr>
                 <tr><td>Modelo 2</td><td>Predecir impacto económico esperado.</td><td>CNIH, EGIF, GHCN/AEMET, INE, CCS</td><td class="status-pending">Pendiente</td></tr>
                 <tr><td>Modelo 3</td><td>Construir un índice de riesgo futuro por territorio.</td><td>Dataset integrado final</td><td class="status-pending">Pendiente</td></tr>
-            </table>
-        </div>
-    </div>
-    
-    <div id="roadmap" class="tabcontent">
-        <div class="card">
-            <h2>Roadmap inmediato</h2>
-            <table>
-                <tr><th>Tarea</th><th>Prioridad</th><th>Estado</th></tr>
-                <tr><td>Cerrar dataset base CNIH con calado, caudal y ARPSI.</td><td>Alta</td><td class="status-progress">En curso</td></tr>
-                <tr><td>Unificar y analizar EGIF.</td><td>Alta</td><td class="status-pending">Pendiente</td></tr>
-                <tr><td>Revisar CCS con foco en hoja ANEXO.</td><td>Media</td><td class="status-pending">Pendiente</td></tr>
-                <tr><td>Definir fuente meteorológica definitiva.</td><td>Media</td><td class="status-progress">En exploración</td></tr>
-                <tr><td>Definir dataset final de modelado.</td><td>Alta</td><td class="status-pending">Pendiente</td></tr>
             </table>
         </div>
     </div>
