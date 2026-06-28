@@ -152,7 +152,7 @@ function openTab(evt, tabName) {
 <header>
 <h1>TFM · Impacto económico de desastres naturales en España</h1>
 <p>Portal automático de seguimiento del proyecto: datos, avances, modelos y descargas.</p>
-<p><b>Última actualización:</b> 28/06/2026 16:45</p>
+<p><b>Última actualización:</b> 28/06/2026 17:46</p>
 </header>
 
 <div class="tabs">
@@ -220,7 +220,7 @@ function openTab(evt, tabName) {
             <td><b>Dataset base unificado CNIH</b></td>
             <td>Inundaciones</td>
             <td>Dataset construido</td>
-            <td>Validar cobertura de calado, caudal y ARPSI, y preparar el análisis de EGIF.</td>
+            <td>Validar cobertura de calado, caudal y ARPSI.</td>
         </tr>
         
             </table>
@@ -346,7 +346,7 @@ function openTab(evt, tabName) {
 
         <details open>
             <summary>Qué hemos hecho para obtener el descargable</summary>
-            <ul><li>Se partió de las tablas originales del CNIH exportadas desde Access a CSV.</li><li>Se seleccionaron las tablas útiles para eventos, daños económicos, daños personales y variables hidrológicas.</li><li>Se normalizaron fechas, localización y variables económicas.</li><li>Se unificó la información a nivel evento–municipio.</li><li>El resultado es el descargable dataset_base_unificado_cnih.csv.</li></ul>
+            <ul><li>Partimos de tablas originales del CNIH exportadas desde Access a CSV.</li><li>Tras un primer análisis, seleccionamoslas tablas útiles para eventos, daños económicos, daños personales y variables hidrológicas.</li><li>Normalizamos fechas, localización y variables económicas.</li><li>Unificamos a nivel evento–municipio.</li><li>El resultado preliminar a la limpieza, está disponible en la pestaña de descargas como el descargable dataset_base_unificado_cnih.csv.</li></ul>
         </details>
 
         <details open>
@@ -399,7 +399,7 @@ function openTab(evt, tabName) {
             
     <table>
         <tr><th>Tarea</th><th>Estado</th></tr>
-        <tr><td>Dataset base CNIH construido</td><td class='status-ok'>Completado</td></tr><tr><td>Validar cobertura de calado</td><td class='status-pending'>Pendiente</td></tr><tr><td>Validar cobertura de caudal</td><td class='status-pending'>Pendiente</td></tr><tr><td>Validar cobertura de ARPSI</td><td class='status-pending'>Pendiente</td></tr><tr><td>Preparar análisis EGIF</td><td class='status-pending'>Pendiente</td></tr>
+        <tr><td>Dataset base CNIH construido</td><td class='status-ok'>Completado</td></tr><tr><td>Validar cobertura de calado</td><td class='status-pending'>Pendiente</td></tr><tr><td>Validar cobertura de caudal</td><td class='status-pending'>Pendiente</td></tr><tr><td>Validar cobertura de ARPSI</td><td class='status-pending'>Pendiente</td></tr>
     </table>
     
         </details>
@@ -422,9 +422,7 @@ function openTab(evt, tabName) {
         <div class="card">
             <h2>Descargas</h2>
             <p>
-            Archivos preparados para el equipo. Solo se publican datasets y documentos desde <b>outputs/descargables</b>.
-            Los JSON internos no aparecen aquí.
-            </p>
+            Estos son los archivos preparados para descargar tras los primeros notebooks de análisis, es decir, serían las bases que luego deberemos juntar y a partir de ahí, limpiar y modelar.     </p>
             
     <table>
         <tr>
@@ -441,7 +439,7 @@ function openTab(evt, tabName) {
             <td>Base unificada de inundaciones a nivel evento–municipio.</td>
             <td>Inundaciones</td>
             <td>2.4 MB</td>
-            <td>28/06/2026 13:13</td>
+            <td>28/06/2026 16:55</td>
             <td><a href="downloads/dataset_base_unificado_cnih.csv" download>Descargar</a></td>
         </tr>
         
