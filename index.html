@@ -155,7 +155,7 @@ function openTab(evt, tabName) {
 </header>
 
 <div class="tabs">
-<button class="tablink active" onclick="openTab(event, 'inicio')">Inicio</button><button class="tablink" onclick="openTab(event, 'proyecto')">Proyecto</button><button class="tablink" onclick="openTab(event, 'datos')">Datos</button><button class="tablink" onclick="openTab(event, 'fuente')">FUENTE</button><button class="tablink" onclick="openTab(event, 'modelos')">Modelos</button><button class="tablink" onclick="openTab(event, 'roadmap')">Roadmap</button><button class="tablink" onclick="openTab(event, 'descargas')">Descargas</button>
+<button class="tablink active" onclick="openTab(event, 'inicio')">Inicio</button><button class="tablink" onclick="openTab(event, 'proyecto')">Proyecto</button><button class="tablink" onclick="openTab(event, 'datos')">Datos</button><button class="tablink" onclick="openTab(event, 'cnih')">CNIH</button><button class="tablink" onclick="openTab(event, 'modelos')">Modelos</button><button class="tablink" onclick="openTab(event, 'roadmap')">Roadmap</button><button class="tablink" onclick="openTab(event, 'descargas')">Descargas</button>
 </div>
 
 
@@ -170,7 +170,7 @@ function openTab(evt, tabName) {
             <p>
             Este portal se actualiza a partir de resúmenes generados por los notebooks. Los textos de análisis, rankings y variables clave proceden de archivos JSON internos.
             </p>
-            <p><b>Última actualización:</b> 28/06/2026 11:37</p>
+            <p><b>Última actualización:</b> 28/06/2026 11:50</p>
         </div>
 
         <div class="card">
@@ -237,10 +237,10 @@ function openTab(evt, tabName) {
                 <tr><th>Fuente</th><th>Tipo</th><th>Estado</th><th>Siguiente paso</th></tr>
                 
         <tr>
-            <td><b>-</b></td>
-            <td>-</td>
+            <td><b>CNIH · Inundaciones</b></td>
+            <td>Inundaciones</td>
             <td>Dataset base construido</td>
-            <td>Analizar EGIF</td>
+            <td>Validar cobertura de calado, caudal y ARPSI, y preparar el análisis de EGIF</td>
         </tr>
         
             </table>
@@ -260,33 +260,53 @@ function openTab(evt, tabName) {
 
     </div>
     
-    <div id="fuente" class="tabcontent">
+    <div id="cnih" class="tabcontent">
 
         <div class="card">
-            <h2>Fuente sin título</h2>
-            <p></p>
+            <h2>CNIH · Inundaciones</h2>
+            <p>Base histórica de eventos de inundación y daños asociados</p>
             <p><b>Estado:</b> <span class="status-ok">Dataset base construido</span></p>
-            
+            <div class='kpi-grid'>
+        <div class="kpi">
+            <div class="value">7.713</div>
+            <div class="label">Registros</div>
+        </div>
+        
+        <div class="kpi">
+            <div class="value">46</div>
+            <div class="label">Variables</div>
+        </div>
+        
+        <div class="kpi">
+            <div class="value">2.837</div>
+            <div class="label">Municipios con daño</div>
+        </div>
+        
+        <div class="kpi">
+            <div class="value">675</div>
+            <div class="label">Eventos con detalle</div>
+        </div>
+        </div>
         </div>
 
         <details open>
             <summary>Resumen ejecutivo del análisis</summary>
-            <p>Pendiente de informar.</p>
+            <ul><li>CNIH se utiliza como base principal para construir el bloque de inundaciones del TFM.</li><li>La base permite trabajar a nivel evento–municipio, lo que aporta más granularidad que fuentes agregadas.</li><li>El objetivo no es usar CNIH de forma aislada, sino conectarlo con meteorología, exposición territorial, CCS y otras fuentes.</li></ul>
         </details>
 
         <details open>
             <summary>Hallazgos principales</summary>
-            <p>Pendiente de informar.</p>
+            <ul><li>CNIH permite relacionar eventos, municipios afectados, daños económicos, daños personales y variables hidrológicas.</li><li>La clave principal de integración interna es CE_COD_EVENTO.</li><li>La variable económica principal es indemnizacion_ccs_eur.</li><li>La distribución de daños es asimétrica: muchos registros con importes bajos o medios y pocos eventos con impacto muy elevado.</li><li>El análisis temporal detecta el siguiente gap dentro del rango observado: 2011-2017.</li></ul>
         </details>
 
         <details open>
             <summary>Cobertura temporal y granularidad</summary>
             <table>
                 <tr><th>Aspecto</th><th>Resultado</th></tr>
-                <tr><td>Granularidad</td><td>-</td></tr>
-                <tr><td>Rango temporal</td><td>-</td></tr>
-                <tr><td>Gap temporal</td><td>-</td></tr>
-                <tr><td>Registros económicos</td><td>-</td></tr>
+                <tr><td>Granularidad</td><td>Evento + municipio</td></tr>
+                <tr><td>Rango temporal</td><td>1987-2023</td></tr>
+                <tr><td>Gap temporal</td><td>2011-2017</td></tr>
+                <tr><td>Registros económicos</td><td>7.713</td></tr>
             </table>
         </details>
 
@@ -294,29 +314,29 @@ function openTab(evt, tabName) {
             <summary>Ranking territorial detectado</summary>
             <p>Ranking calculado a partir de los datos observados. No debe interpretarse todavía como ranking definitivo de riesgo.</p>
             <h3>Municipios</h3>
-            <p>Pendiente de informar.</p>
+            <table><tr><th>#</th><th>Municipio</th><th>Valor acumulado</th></tr><tr><td>1</td><td>Orihuela</td><td>124.357.023 €</td></tr><tr><td>2</td><td>Donostia/San Sebastián</td><td>92.074.141 €</td></tr><tr><td>3</td><td>Los Alcázares</td><td>71.131.849 €</td></tr><tr><td>4</td><td>Murcia</td><td>50.088.635 €</td></tr><tr><td>5</td><td>Santa Cruz de Tenerife</td><td>43.376.336 €</td></tr><tr><td>6</td><td>Cartagena</td><td>36.607.059 €</td></tr><tr><td>7</td><td>Torre-Pacheco</td><td>32.217.506 €</td></tr><tr><td>8</td><td>Tarragona</td><td>31.583.128 €</td></tr><tr><td>9</td><td>Toledo</td><td>26.417.370 €</td></tr><tr><td>10</td><td>València</td><td>23.855.940 €</td></tr></table>
             <h3>Provincias</h3>
-            <p>Pendiente de informar.</p>
+            <table><tr><th>#</th><th>Provincia</th><th>Valor acumulado</th></tr><tr><td>1</td><td>Alacant/Alicante</td><td>303.796.224 €</td></tr><tr><td>2</td><td>Murcia</td><td>283.146.532 €</td></tr><tr><td>3</td><td>València/Valencia</td><td>216.401.321 €</td></tr><tr><td>4</td><td>Gipuzkoa</td><td>137.744.321 €</td></tr><tr><td>5</td><td>Toledo</td><td>131.664.203 €</td></tr><tr><td>6</td><td>Barcelona</td><td>102.492.562 €</td></tr><tr><td>7</td><td>Madrid</td><td>97.038.530 €</td></tr><tr><td>8</td><td>Bizkaia</td><td>68.618.423 €</td></tr><tr><td>9</td><td>Santa Cruz de Tenerife</td><td>60.193.149 €</td></tr><tr><td>10</td><td>Castelló/Castellón</td><td>54.192.234 €</td></tr></table>
         </details>
 
         <details open>
             <summary>Variables clave para integración</summary>
-            <p>Pendiente de informar.</p>
+            <table><tr><th>Variable</th><th>Uso</th><th>Con qué puede cruzarse</th></tr><tr><td>CE_COD_EVENTO</td><td>Identificador de evento</td><td>Tablas internas CNIH: evento, daño económico, daño personal, calado, caudal y ARPSI</td></tr><tr><td>fecha_inicio / año / mes</td><td>Dimensión temporal</td><td>CCS agregado, GHCN/AEMET y análisis temporal</td></tr><tr><td>municipio / provincia / código municipio</td><td>Dimensión territorial</td><td>INE, CCS por provincia, exposición territorial y meteorología</td></tr><tr><td>indemnizacion_ccs_eur</td><td>Daño económico observado</td><td>Target económico o validación frente a CCS agregado</td></tr><tr><td>calado / caudal / ARPSI</td><td>Severidad física y contexto territorial de riesgo</td><td>SNCZI, variables hidrológicas y capas de riesgo</td></tr></table>
         </details>
 
         <details open>
             <summary>Relación con otras bases de datos</summary>
-            <p>Pendiente de informar.</p>
+            <table><tr><th>Base</th><th>Relación</th><th>Utilidad</th></tr><tr><td>CCS</td><td>Cruce por provincia, año y tipo de fenómeno</td><td>Validación económica agregada de las indemnizaciones</td></tr><tr><td>GHCN / AEMET</td><td>Cruce por fecha y localización aproximada</td><td>Incorporar precipitación, temperatura u otras variables meteorológicas</td></tr><tr><td>INE</td><td>Cruce por municipio/provincia y año</td><td>Normalizar daños por población y exposición territorial</td></tr><tr><td>SNCZI / ARPSI</td><td>Cruce territorial con zonas oficiales de riesgo de inundación</td><td>Evaluar si los daños se concentran en zonas oficialmente vulnerables</td></tr><tr><td>EGIF</td><td>No se cruza evento a evento, pero comparte dimensión territorial y temporal</td><td>Construir una visión conjunta del riesgo natural: inundaciones + incendios</td></tr></table>
         </details>
 
         <details>
             <summary>Limitaciones</summary>
-            <p>Pendiente de informar.</p>
+            <ul><li>La información económica municipal no está disponible para todos los eventos históricos.</li><li>Algunas variables hidrológicas presentan elevada proporción de nulos o cobertura irregular.</li><li>El gap temporal detectado debe tratarse como limitación antes del modelado.</li><li>CNIH cubre inundaciones; el dataset final debe integrarse con EGIF, CCS, meteorología e INE.</li></ul>
         </details>
 
         <details>
             <summary>Siguiente paso</summary>
-            <p>Analizar EGIF</p>
+            <p>Validar cobertura de calado, caudal y ARPSI, y preparar el análisis de EGIF</p>
         </details>
 
     </div>
@@ -370,7 +390,7 @@ function openTab(evt, tabName) {
             <td>Base unificada de inundaciones a nivel evento–municipio.</td>
             <td>Inundaciones</td>
             <td>2.4 MB</td>
-            <td>27/06/2026 20:26</td>
+            <td>28/06/2026 11:45</td>
             <td><a href="downloads/dataset_base_unificado_cnih.csv" download>Descargar</a></td>
         </tr>
         
