@@ -45,10 +45,11 @@ function openTab(evt, tabName) {
 <header>
 <h1>TFM · Impacto económico de desastres naturales en España</h1>
 <p>Portal de seguimiento del proyecto: datos, avances, modelos, roadmap y descargas.</p>
-<p><b>Última actualización:</b> 28/06/2026 10:34</p>
+<p><b>Última actualización:</b> 28/06/2026 10:45</p>
 </header>
 <div class="tabs">
 <button class="tablink active" onclick="openTab(event, 'inicio')">Inicio</button>
+<button class="tablink" onclick="openTab(event, 'proyecto')">Proyecto</button>
 <button class="tablink" onclick="openTab(event, 'datos')">Datos</button>
 <button class="tablink" onclick="openTab(event, 'cnih')">CNIH</button>
 <button class="tablink" onclick="openTab(event, 'modelos')">Modelos</button>
@@ -87,6 +88,47 @@ function openTab(evt, tabName) {
 <tr><td><b>AEMET / NOAA</b></td><td>Variables climáticas.</td><td>Variables explicativas externas.</td><td class="status-pending">Pendiente</td></tr>
 <tr><td><b>INE</b></td><td>Población y exposición territorial.</td><td>Normalización del impacto.</td><td class="status-pending">Pendiente</td></tr>
 </table></div>
+
+<div id="proyecto" class="tabcontent">
+
+<div class="card">
+<h2>Proyecto</h2>
+<p>
+El TFM busca analizar y predecir el impacto económico de fenómenos naturales extraordinarios en España.
+La pregunta principal es cómo estimar el riesgo económico por territorio combinando datos históricos, variables físicas del evento y exposición territorial.
+</p>
+</div>
+
+<div class="card">
+<h2>Pregunta de negocio</h2>
+<p>
+El objetivo no es solo medir cuánto daño ha ocurrido, sino construir una base que permita comparar territorios, entender qué factores explican mayores pérdidas y valorar dónde existe mayor exposición futura.
+</p>
+</div>
+
+<div class="card">
+<h2>Arquitectura del proyecto</h2>
+<table>
+<tr><th>Bloque</th><th>Función</th></tr>
+<tr><td>Datos históricos</td><td>CNIH, EGIF y CCS aportan eventos, daños e indemnizaciones.</td></tr>
+<tr><td>Variables externas</td><td>Meteorología, población y exposición territorial ayudan a explicar el impacto.</td></tr>
+<tr><td>Dataset integrado</td><td>Unifica fuentes para construir una base común de modelado.</td></tr>
+<tr><td>Modelos</td><td>Permiten segmentar territorios, predecir impacto económico y priorizar zonas de riesgo.</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h2>Estado actual</h2>
+<ul>
+<li>CNIH ya ha sido exportado, analizado y transformado en un dataset base.</li>
+<li>Se está consolidando la incorporación de variables hidrológicas como calado, caudal y ARPSI.</li>
+<li>El siguiente gran bloque será EGIF, como fuente principal de incendios forestales.</li>
+<li>El dataset final no dependerá de una única base, sino de la integración de varias fuentes.</li>
+</ul>
+</div>
+
+</div>
+
 </div>
 <div id="cnih" class="tabcontent">
 <div class="card"><h2>CNIH · Dataset base de inundaciones</h2><p>El CNIH se ha convertido de Access a CSV, se ha analizado y se ha transformado en un dataset base a nivel <b>Evento + municipio</b>.</p>
