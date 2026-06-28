@@ -45,7 +45,7 @@ function openTab(evt, tabName) {
 <header>
 <h1>TFM · Impacto económico de desastres naturales en España</h1>
 <p>Portal de seguimiento del proyecto: datos, avances, modelos, roadmap y descargas.</p>
-<p><b>Última actualización:</b> 28/06/2026 10:45</p>
+<p><b>Última actualización:</b> 28/06/2026 10:55</p>
 </header>
 <div class="tabs">
 <button class="tablink active" onclick="openTab(event, 'inicio')">Inicio</button>
@@ -79,6 +79,48 @@ function openTab(evt, tabName) {
 </table>
 </div>
 </div>
+
+<div id="proyecto" class="tabcontent">
+
+<div class="card">
+<h2>Proyecto</h2>
+<p>
+El TFM busca analizar y predecir el impacto económico de fenómenos naturales extraordinarios en España,
+combinando datos históricos, variables físicas del evento y exposición territorial.
+</p>
+</div>
+
+<div class="card">
+<h2>Pregunta de negocio</h2>
+<p>
+Queremos construir una base que permita comparar territorios, entender qué factores explican mayores pérdidas económicas
+y valorar dónde existe mayor exposición futura.
+</p>
+</div>
+
+<div class="card">
+<h2>Arquitectura del proyecto</h2>
+<table>
+<tr><th>Bloque</th><th>Función</th></tr>
+<tr><td>Datos históricos</td><td>CNIH, EGIF y CCS aportan eventos, daños e indemnizaciones.</td></tr>
+<tr><td>Variables externas</td><td>Meteorología, población y exposición territorial ayudan a explicar el impacto.</td></tr>
+<tr><td>Dataset integrado</td><td>Unifica fuentes para construir una base común de modelado.</td></tr>
+<tr><td>Modelos</td><td>Segmentación territorial, predicción de impacto económico e índice de riesgo.</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h2>Estado actual</h2>
+<ul>
+<li>CNIH ya ha sido exportado, analizado y transformado en un dataset base.</li>
+<li>Se está consolidando la incorporación de variables hidrológicas: calado, caudal y ARPSI.</li>
+<li>El siguiente bloque será EGIF, como fuente principal de incendios forestales.</li>
+<li>El dataset final integrará varias fuentes, no solo CNIH.</li>
+</ul>
+</div>
+
+</div>
+
 <div id="datos" class="tabcontent">
 <div class="card"><h2>Fuentes de datos</h2><table>
 <tr><th>Fuente</th><th>Uso previsto</th><th>Papel</th><th>Estado</th></tr>
