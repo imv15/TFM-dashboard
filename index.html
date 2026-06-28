@@ -170,7 +170,7 @@ function openTab(evt, tabName) {
             <p>
             Este portal se actualiza a partir de resúmenes generados por los notebooks. Los textos de análisis, rankings y variables clave proceden de archivos JSON internos.
             </p>
-            <p><b>Última actualización:</b> 28/06/2026 11:50</p>
+            <p><b>Última actualización:</b> 28/06/2026 12:12</p>
         </div>
 
         <div class="card">
@@ -237,10 +237,10 @@ function openTab(evt, tabName) {
                 <tr><th>Fuente</th><th>Tipo</th><th>Estado</th><th>Siguiente paso</th></tr>
                 
         <tr>
-            <td><b>CNIH · Inundaciones</b></td>
+            <td><b>Dataset base unificado CNIH</b></td>
             <td>Inundaciones</td>
-            <td>Dataset base construido</td>
-            <td>Validar cobertura de calado, caudal y ARPSI, y preparar el análisis de EGIF</td>
+            <td>Dataset construido</td>
+            <td>Validar cobertura de calado, caudal y ARPSI, y preparar el análisis de EGIF.</td>
         </tr>
         
             </table>
@@ -263,9 +263,9 @@ function openTab(evt, tabName) {
     <div id="cnih" class="tabcontent">
 
         <div class="card">
-            <h2>CNIH · Inundaciones</h2>
-            <p>Base histórica de eventos de inundación y daños asociados</p>
-            <p><b>Estado:</b> <span class="status-ok">Dataset base construido</span></p>
+            <h2>Dataset base unificado CNIH</h2>
+            <p>Entregable generado a partir de CNIH para el análisis de inundaciones</p>
+            <p><b>Estado:</b> <span class="status-ok">Dataset construido</span></p>
             <div class='kpi-grid'>
         <div class="kpi">
             <div class="value">7.713</div>
@@ -279,24 +279,24 @@ function openTab(evt, tabName) {
         
         <div class="kpi">
             <div class="value">2.837</div>
-            <div class="label">Municipios con daño</div>
+            <div class="label">Municipios</div>
         </div>
         
         <div class="kpi">
             <div class="value">675</div>
-            <div class="label">Eventos con detalle</div>
+            <div class="label">Eventos</div>
         </div>
         </div>
         </div>
 
         <details open>
             <summary>Resumen ejecutivo del análisis</summary>
-            <ul><li>CNIH se utiliza como base principal para construir el bloque de inundaciones del TFM.</li><li>La base permite trabajar a nivel evento–municipio, lo que aporta más granularidad que fuentes agregadas.</li><li>El objetivo no es usar CNIH de forma aislada, sino conectarlo con meteorología, exposición territorial, CCS y otras fuentes.</li></ul>
+            <ul><li>Este dataset es el entregable principal del bloque CNIH y sirve como base de trabajo para inundaciones.</li><li>Cada registro representa una combinación de evento y municipio afectado.</li><li>El dataset integra información económica, temporal, territorial e hidrológica para facilitar el análisis posterior.</li><li>El objetivo es que pueda cruzarse con otras fuentes como CCS, GHCN/AEMET, INE, SNCZI/ARPSI y EGIF.</li></ul>
         </details>
 
         <details open>
             <summary>Hallazgos principales</summary>
-            <ul><li>CNIH permite relacionar eventos, municipios afectados, daños económicos, daños personales y variables hidrológicas.</li><li>La clave principal de integración interna es CE_COD_EVENTO.</li><li>La variable económica principal es indemnizacion_ccs_eur.</li><li>La distribución de daños es asimétrica: muchos registros con importes bajos o medios y pocos eventos con impacto muy elevado.</li><li>El análisis temporal detecta el siguiente gap dentro del rango observado: 2011-2017.</li></ul>
+            <ul><li>El dataset final contiene 7.713 registros y 46 variables.</li><li>La variable económica principal es indemnizacion_ccs_eur.</li><li>La clave principal para relacionar tablas CNIH es CE_COD_EVENTO.</li><li>Se detecta el siguiente gap temporal dentro del rango observado: 2011-2017.</li><li>Las indemnizaciones presentan una distribución muy concentrada: muchos registros con importes bajos o medios y pocos casos de impacto muy elevado.</li><li>El ranking territorial permite identificar zonas con mayor daño económico acumulado, aunque todavía no debe interpretarse como ranking definitivo de riesgo.</li></ul>
         </details>
 
         <details open>
@@ -321,22 +321,22 @@ function openTab(evt, tabName) {
 
         <details open>
             <summary>Variables clave para integración</summary>
-            <table><tr><th>Variable</th><th>Uso</th><th>Con qué puede cruzarse</th></tr><tr><td>CE_COD_EVENTO</td><td>Identificador de evento</td><td>Tablas internas CNIH: evento, daño económico, daño personal, calado, caudal y ARPSI</td></tr><tr><td>fecha_inicio / año / mes</td><td>Dimensión temporal</td><td>CCS agregado, GHCN/AEMET y análisis temporal</td></tr><tr><td>municipio / provincia / código municipio</td><td>Dimensión territorial</td><td>INE, CCS por provincia, exposición territorial y meteorología</td></tr><tr><td>indemnizacion_ccs_eur</td><td>Daño económico observado</td><td>Target económico o validación frente a CCS agregado</td></tr><tr><td>calado / caudal / ARPSI</td><td>Severidad física y contexto territorial de riesgo</td><td>SNCZI, variables hidrológicas y capas de riesgo</td></tr></table>
+            <table><tr><th>Variable</th><th>Uso</th><th>Con qué puede cruzarse</th></tr><tr><td>CE_COD_EVENTO</td><td>Identificador del evento</td><td>Tablas internas CNIH: evento, daño económico, daño personal, calado, caudal y ARPSI</td></tr><tr><td>fecha_inicio / año / mes</td><td>Dimensión temporal</td><td>CCS agregado, GHCN/AEMET y análisis temporal</td></tr><tr><td>municipio / provincia / código municipio</td><td>Dimensión territorial</td><td>INE, CCS por provincia, meteorología y exposición territorial</td></tr><tr><td>indemnizacion_ccs_eur</td><td>Daño económico observado</td><td>Variable objetivo o validación frente a CCS agregado</td></tr><tr><td>calado / caudal / ARPSI</td><td>Severidad física y contexto de riesgo</td><td>SNCZI, variables hidrológicas y capas oficiales de riesgo</td></tr></table>
         </details>
 
         <details open>
             <summary>Relación con otras bases de datos</summary>
-            <table><tr><th>Base</th><th>Relación</th><th>Utilidad</th></tr><tr><td>CCS</td><td>Cruce por provincia, año y tipo de fenómeno</td><td>Validación económica agregada de las indemnizaciones</td></tr><tr><td>GHCN / AEMET</td><td>Cruce por fecha y localización aproximada</td><td>Incorporar precipitación, temperatura u otras variables meteorológicas</td></tr><tr><td>INE</td><td>Cruce por municipio/provincia y año</td><td>Normalizar daños por población y exposición territorial</td></tr><tr><td>SNCZI / ARPSI</td><td>Cruce territorial con zonas oficiales de riesgo de inundación</td><td>Evaluar si los daños se concentran en zonas oficialmente vulnerables</td></tr><tr><td>EGIF</td><td>No se cruza evento a evento, pero comparte dimensión territorial y temporal</td><td>Construir una visión conjunta del riesgo natural: inundaciones + incendios</td></tr></table>
+            <table><tr><th>Base</th><th>Relación</th><th>Utilidad</th></tr><tr><td>CCS</td><td>Provincia, año y tipo de fenómeno</td><td>Validar el daño económico agregado frente a indemnizaciones oficiales</td></tr><tr><td>GHCN / AEMET</td><td>Fecha y localización aproximada</td><td>Incorporar precipitación, temperatura u otras variables meteorológicas</td></tr><tr><td>INE</td><td>Municipio/provincia y año</td><td>Normalizar daños por población y exposición territorial</td></tr><tr><td>SNCZI / ARPSI</td><td>Zonas oficiales de riesgo de inundación</td><td>Evaluar si los daños se concentran en áreas oficialmente vulnerables</td></tr><tr><td>EGIF</td><td>Dimensión territorial y temporal compartida</td><td>Construir una visión conjunta de riesgos naturales: inundaciones + incendios</td></tr></table>
         </details>
 
         <details>
             <summary>Limitaciones</summary>
-            <ul><li>La información económica municipal no está disponible para todos los eventos históricos.</li><li>Algunas variables hidrológicas presentan elevada proporción de nulos o cobertura irregular.</li><li>El gap temporal detectado debe tratarse como limitación antes del modelado.</li><li>CNIH cubre inundaciones; el dataset final debe integrarse con EGIF, CCS, meteorología e INE.</li></ul>
+            <ul><li>No todos los eventos históricos tienen información económica municipal.</li><li>El gap temporal detectado debe tratarse como una limitación antes del modelado.</li><li>Algunas variables hidrológicas presentan cobertura irregular o valores nulos.</li><li>CNIH solo cubre inundaciones; el dataset final deberá integrarse con otras fuentes.</li></ul>
         </details>
 
         <details>
             <summary>Siguiente paso</summary>
-            <p>Validar cobertura de calado, caudal y ARPSI, y preparar el análisis de EGIF</p>
+            <p>Validar cobertura de calado, caudal y ARPSI, y preparar el análisis de EGIF.</p>
         </details>
 
     </div>
