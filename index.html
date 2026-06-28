@@ -152,7 +152,7 @@ function openTab(evt, tabName) {
 <header>
 <h1>TFM · Impacto económico de desastres naturales en España</h1>
 <p>Portal automático de seguimiento del proyecto: datos, avances, modelos y descargas.</p>
-<p><b>Última actualización:</b> 28/06/2026 12:41</p>
+<p><b>Última actualización:</b> 28/06/2026 13:14</p>
 </header>
 
 <div class="tabs">
@@ -187,31 +187,11 @@ function openTab(evt, tabName) {
             <h2>Roadmap simplificado</h2>
             <table>
                 <tr><th>Fase</th><th>Estado</th><th>Comentario</th></tr>
-                <tr>
-                    <td>1. Base CNIH</td>
-                    <td class="status-ok">Completado</td>
-                    <td>Dataset base de inundaciones generado y disponible en descargas.</td>
-                </tr>
-                <tr>
-                    <td>2. Enriquecimiento CNIH</td>
-                    <td class="status-progress">En curso</td>
-                    <td>Validación de calado, caudal, ARPSI y variables territoriales.</td>
-                </tr>
-                <tr>
-                    <td>3. Nuevas fuentes</td>
-                    <td class="status-pending">Siguiente paso</td>
-                    <td>Incorporación de EGIF, CCS, meteorología e INE.</td>
-                </tr>
-                <tr>
-                    <td>4. Dataset final</td>
-                    <td class="status-pending">Pendiente</td>
-                    <td>Integración de fuentes para modelado.</td>
-                </tr>
-                <tr>
-                    <td>5. Modelos</td>
-                    <td class="status-pending">Pendiente</td>
-                    <td>Segmentación territorial, predicción de impacto económico e índice de riesgo.</td>
-                </tr>
+                <tr><td>1. Base CNIH</td><td class="status-ok">Completado</td><td>Dataset base de inundaciones generado y disponible en descargas.</td></tr>
+                <tr><td>2. Enriquecimiento CNIH</td><td class="status-progress">En curso</td><td>Validación de calado, caudal, ARPSI y variables territoriales.</td></tr>
+                <tr><td>3. Nuevas fuentes</td><td class="status-pending">Siguiente paso</td><td>Incorporación de EGIF, CCS, meteorología e INE.</td></tr>
+                <tr><td>4. Dataset final</td><td class="status-pending">Pendiente</td><td>Integración de fuentes para modelado.</td></tr>
+                <tr><td>5. Modelos</td><td class="status-pending">Pendiente</td><td>Segmentación territorial, predicción de impacto económico e índice de riesgo.</td></tr>
             </table>
         </div>
 
@@ -229,6 +209,22 @@ function openTab(evt, tabName) {
     </div>
     
     <div id="datos" class="tabcontent">
+
+        <div class="card">
+            <h2>Fuentes con resumen automático</h2>
+            <p>Esta tabla se genera leyendo todos los archivos <b>outputs/internos/resumen_*.json</b>.</p>
+            <table>
+                <tr><th>Fuente</th><th>Tipo</th><th>Estado</th><th>Siguiente paso</th></tr>
+                
+        <tr>
+            <td><b>Dataset base unificado CNIH</b></td>
+            <td>Inundaciones</td>
+            <td>Dataset construido</td>
+            <td>Validar cobertura de calado, caudal y ARPSI, y preparar el análisis de EGIF.</td>
+        </tr>
+        
+            </table>
+        </div>
 
         <div class="card">
             <h2>Fuentes previstas</h2>
@@ -274,13 +270,18 @@ function openTab(evt, tabName) {
         </div>
 
         <details open>
-            <summary>Resumen ejecutivo del análisis</summary>
+            <summary>Qué hemos hecho para obtener el descargable</summary>
+            <ul><li>Se partió de las tablas originales del CNIH exportadas desde Access a CSV.</li><li>Se seleccionaron las tablas útiles para eventos, daños económicos, daños personales y variables hidrológicas.</li><li>Se normalizaron fechas, localización y variables económicas.</li><li>Se unificó la información a nivel evento–municipio.</li><li>El resultado es el descargable dataset_base_unificado_cnih.csv.</li></ul>
+        </details>
+
+        <details open>
+            <summary>Resumen ejecutivo del entregable</summary>
             <ul><li>Este dataset es el entregable principal del bloque CNIH y sirve como base de trabajo para inundaciones.</li><li>Cada registro representa una combinación de evento y municipio afectado.</li><li>El dataset integra información económica, temporal, territorial e hidrológica para facilitar el análisis posterior.</li><li>El objetivo es que pueda cruzarse con otras fuentes como CCS, GHCN/AEMET, INE, SNCZI/ARPSI y EGIF.</li></ul>
         </details>
 
         <details open>
             <summary>Hallazgos principales</summary>
-            <ul><li>El dataset final contiene 7.713 registros y 46 variables.</li><li>La variable económica principal es indemnizacion_ccs_eur.</li><li>La clave principal para relacionar tablas CNIH es CE_COD_EVENTO.</li><li>Se detecta el siguiente gap temporal dentro del rango observado: 2011-2017.</li><li>Las indemnizaciones presentan una distribución muy concentrada: muchos registros con importes bajos o medios y pocos casos de impacto muy elevado.</li><li>El ranking territorial permite identificar zonas con mayor daño económico acumulado, aunque todavía no debe interpretarse como ranking definitivo de riesgo.</li></ul>
+            <ul><li>El dataset final contiene 7.713 registros y 46 variables.</li><li>La variable económica principal es indemnizacion_ccs_eur.</li><li>La clave principal para relacionar tablas CNIH es CE_COD_EVENTO.</li><li>Se detecta el siguiente gap temporal dentro del rango observado: 2011-2017.</li><li>Las indemnizaciones presentan una distribución concentrada: muchos registros con importes bajos o medios y pocos casos de impacto muy elevado.</li><li>El ranking territorial permite identificar zonas con mayor daño económico acumulado, aunque todavía no debe interpretarse como ranking definitivo de riesgo.</li></ul>
         </details>
 
         <details open>
@@ -296,7 +297,7 @@ function openTab(evt, tabName) {
 
         <details>
             <summary>Ranking territorial detectado</summary>
-            <p>Ranking calculado a partir de los datos observados. No debe interpretarse todavía como ranking definitivo de riesgo.</p>
+            <p>Ranking calculado a partir del dataset generado. No debe interpretarse todavía como ranking definitivo de riesgo.</p>
             <h3>Municipios</h3>
             <table><tr><th>#</th><th>Municipio</th><th>Valor acumulado</th></tr><tr><td>1</td><td>Orihuela</td><td>124.357.023 €</td></tr><tr><td>2</td><td>Donostia/San Sebastián</td><td>92.074.141 €</td></tr><tr><td>3</td><td>Los Alcázares</td><td>71.131.849 €</td></tr><tr><td>4</td><td>Murcia</td><td>50.088.635 €</td></tr><tr><td>5</td><td>Santa Cruz de Tenerife</td><td>43.376.336 €</td></tr><tr><td>6</td><td>Cartagena</td><td>36.607.059 €</td></tr><tr><td>7</td><td>Torre-Pacheco</td><td>32.217.506 €</td></tr><tr><td>8</td><td>Tarragona</td><td>31.583.128 €</td></tr><tr><td>9</td><td>Toledo</td><td>26.417.370 €</td></tr><tr><td>10</td><td>València</td><td>23.855.940 €</td></tr></table>
             <h3>Provincias</h3>
@@ -318,9 +319,14 @@ function openTab(evt, tabName) {
             <ul><li>No todos los eventos históricos tienen información económica municipal.</li><li>El gap temporal detectado debe tratarse como una limitación antes del modelado.</li><li>Algunas variables hidrológicas presentan cobertura irregular o valores nulos.</li><li>CNIH solo cubre inundaciones; el dataset final deberá integrarse con otras fuentes.</li></ul>
         </details>
 
-        <details>
-            <summary>Siguiente paso</summary>
-            <p>Validar cobertura de calado, caudal y ARPSI, y preparar el análisis de EGIF.</p>
+        <details open>
+            <summary>Próximos pasos</summary>
+            
+    <table>
+        <tr><th>Tarea</th><th>Estado</th></tr>
+        <tr><td>Dataset base CNIH construido</td><td class='status-ok'>Completado</td></tr><tr><td>Validar cobertura de calado</td><td class='status-pending'>Pendiente</td></tr><tr><td>Validar cobertura de caudal</td><td class='status-pending'>Pendiente</td></tr><tr><td>Validar cobertura de ARPSI</td><td class='status-pending'>Pendiente</td></tr><tr><td>Preparar análisis EGIF</td><td class='status-pending'>Pendiente</td></tr>
+    </table>
+    
         </details>
 
     </div>
@@ -360,7 +366,7 @@ function openTab(evt, tabName) {
             <td>Base unificada de inundaciones a nivel evento–municipio.</td>
             <td>Inundaciones</td>
             <td>2.4 MB</td>
-            <td>28/06/2026 11:45</td>
+            <td>28/06/2026 13:13</td>
             <td><a href="downloads/dataset_base_unificado_cnih.csv" download>Descargar</a></td>
         </tr>
         
