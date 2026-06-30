@@ -152,11 +152,11 @@ function openTab(evt, tabName) {
 <header>
 <h1>TFM · Impacto económico de desastres naturales en España</h1>
 <p>Portal automático de seguimiento del proyecto: datos, avances, modelos y descargas.</p>
-<p><b>Última actualización:</b> 30/06/2026 00:38</p>
+<p><b>Última actualización:</b> 01/07/2026 01:02</p>
 </header>
 
 <div class="tabs">
-<button class="tablink active" onclick="openTab(event, 'inicio')">Inicio</button><button class="tablink" onclick="openTab(event, 'datos')">Datos</button><button class="tablink" onclick="openTab(event, 'cnih')">CNIH</button><button class="tablink" onclick="openTab(event, 'modelos')">Modelos</button><button class="tablink" onclick="openTab(event, 'descargas')">Descargas</button>
+<button class="tablink active" onclick="openTab(event, 'inicio')">Inicio</button><button class="tablink" onclick="openTab(event, 'datos')">Datos</button><button class="tablink" onclick="openTab(event, 'cnih')">CNIH</button><button class="tablink" onclick="openTab(event, 'aemet')">AEMET</button><button class="tablink" onclick="openTab(event, 'modelos')">Modelos</button><button class="tablink" onclick="openTab(event, 'descargas')">Descargas</button>
 </div>
 
 
@@ -219,6 +219,13 @@ function openTab(evt, tabName) {
             <td>Inundaciones</td>
             <td>Dataset construido</td>
             <td>-</td>
+        </tr>
+        
+        <tr>
+            <td><b>AEMET / GHCN · Meteorología</b></td>
+            <td>Meteorología</td>
+            <td>Análisis inicial construido</td>
+            <td>Agregar meteorología por evento CNIH.</td>
         </tr>
         
             </table>
@@ -381,6 +388,86 @@ function openTab(evt, tabName) {
         </details>
     </div>
     
+    <div id="aemet" class="tabcontent">
+
+        <div class="card">
+            <h2>AEMET / GHCN · Meteorología</h2>
+            <p>Análisis de la base meteorológica consolidada para enriquecer eventos naturales</p>
+            <p><b>Estado:</b> <span class="status-ok">Análisis inicial construido</span></p>
+            <div class='kpi-grid'>
+        <div class="kpi">
+            <div class="value">6.147.237</div>
+            <div class="label">Registros</div>
+        </div>
+        
+        <div class="kpi">
+            <div class="value">27</div>
+            <div class="label">Variables</div>
+        </div>
+        
+        <div class="kpi">
+            <div class="value">54</div>
+            <div class="label">Provincias</div>
+        </div>
+        
+        <div class="kpi">
+            <div class="value">-</div>
+            <div class="label">Estaciones</div>
+        </div>
+        </div>
+        </div>
+
+        <details open>
+            <summary>Qué hemos hecho para obtener el descargable</summary>
+            <ul><li>Se cargó la base meteorológica consolidada en local.</li><li>Se revisó su cobertura temporal y territorial.</li><li>Se identificaron las variables meteorológicas útiles para cruce con CNIH.</li><li>Se generó un resumen interno para el portal sin publicar el CSV grande.</li></ul>
+        </details>
+
+        <details open>
+            <summary>Resumen ejecutivo del entregable</summary>
+            <ul><li>Se ha consolidado una base meteorológica histórica para analizar variables climáticas asociadas a fenómenos naturales.</li><li>El objetivo es utilizar esta fuente como variable explicativa en el dataset final del TFM.</li><li>La base completa no se publica en GitHub por su tamaño; el portal solo recoge los resultados del análisis.</li></ul>
+        </details>
+
+        <details open>
+            <summary>Hallazgos principales</summary>
+            <ul><li>El dataset meteorológico contiene 6.147.237 registros y 27 variables.</li><li>La cobertura temporal observada es 2000-01-01 - 2026-06-26.</li><li>El dataset contiene información de 54 provincias y - estaciones.</li><li>La base no se publica como descargable por su tamaño; solo se publican los resultados útiles en el portal.</li><li>La utilidad principal es enriquecer CNIH con variables meteorológicas por fecha y territorio.</li></ul>
+        </details>
+
+        <details open>
+            <summary>Cobertura temporal y granularidad</summary>
+            <table>
+                <tr><th>Aspecto</th><th>Resultado</th></tr>
+                <tr><td>Granularidad</td><td>Estación / fecha / territorio</td></tr>
+                <tr><td>Rango temporal</td><td>2000-01-01 - 2026-06-26</td></tr>
+                <tr><td>Gap temporal</td><td>Pendiente de validar</td></tr>
+                <tr><td>Registros económicos</td><td>-</td></tr>
+            </table>
+        </details>
+
+        <details>
+            <summary>Ranking territorial detectado</summary>
+            <p>Ranking calculado a partir del dataset generado. No debe interpretarse todavía como ranking definitivo de riesgo.</p>
+            <h3>Municipios</h3>
+            <p>Pendiente de informar.</p>
+            <h3>Provincias</h3>
+            <p>Pendiente de informar.</p>
+        </details>
+
+        <details open>
+            <summary>Variables clave para integración</summary>
+            <table><tr><th>Variable</th><th>Uso</th><th>Con qué puede cruzarse</th></tr><tr><td>fecha</td><td>Dimensión temporal</td><td>Fecha de inicio del evento CNIH</td></tr><tr><td>provincia / municipio / coordenadas</td><td>Dimensión territorial</td><td>Municipio o provincia del evento CNIH</td></tr><tr><td>tmin</td><td>Variable meteorológica</td><td>97.02% de cobertura</td></tr><tr><td>tmax</td><td>Variable meteorológica</td><td>97.05% de cobertura</td></tr></table>
+        </details>
+
+        <details open>
+            <summary>Relación con otras bases de datos</summary>
+            <table><tr><th>Base</th><th>Relación</th><th>Utilidad</th></tr><tr><td>CNIH</td><td>Cruce por fecha y territorio</td><td>Añadir contexto meteorológico a eventos de inundación</td></tr><tr><td>EGIF</td><td>Cruce por fecha y territorio</td><td>Añadir contexto meteorológico a incendios forestales</td></tr><tr><td>INE</td><td>Cruce territorial</td><td>Combinar meteorología con exposición poblacional</td></tr></table>
+        </details>
+
+        <details>
+            <summary>Limitaciones</summary>
+            <ul><li>El archivo completo es demasiado grande para publicarlo en GitHub.</li><li>Será necesario definir el nivel de agregación adecuado antes del cruce con CNIH.</li><li>Debe validarse la cobertura real por provincia, estación y periodo temporal.</li></ul>
+        </details>
+    </div>
+    
     <div id="modelos" class="tabcontent">
         <div class="card">
             <h2>Diseño preliminar de modelos</h2>
@@ -414,7 +501,7 @@ function openTab(evt, tabName) {
             <td>Base unificada de inundaciones a nivel evento–municipio.</td>
             <td>Inundaciones</td>
             <td>2.4 MB</td>
-            <td>28/06/2026 19:03</td>
+            <td>01/07/2026 01:01</td>
             <td><a href="downloads/dataset_base_unificado_cnih.csv" download>Descargar</a></td>
         </tr>
         
