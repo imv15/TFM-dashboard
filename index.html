@@ -2,514 +2,801 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TFM · Portal del Proyecto</title>
-
 <style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: #f6f8fb;
-    color: #222;
-}
-header {
-    background: #1f4e79;
-    color: white;
-    padding: 30px 45px;
-}
-header h1 {
-    margin: 0;
-    font-size: 30px;
-}
-header p {
-    margin-bottom: 0;
-}
-.tabs {
-    overflow: hidden;
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
-    padding-left: 35px;
-}
-.tabs button {
-    background-color: inherit;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 16px 20px;
-    font-size: 15px;
-    font-weight: bold;
-    color: #1f4e79;
-}
-.tabs button:hover {
-    background-color: #eef4fb;
-}
-.tabs button.active {
-    background-color: #1f4e79;
-    color: white;
-}
-.tabcontent {
-    display: none;
-    padding: 30px 45px;
-}
-.card {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 22px;
-}
-h2 {
-    color: #1f4e79;
-    margin-top: 0;
-}
-h3 {
-    color: #2f75b5;
-    margin-bottom: 8px;
-}
-table {
-    border-collapse: collapse;
-    width: 100%;
-    background: white;
-    margin-top: 12px;
-}
-th, td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-    vertical-align: top;
-}
-th {
-    background-color: #eef4fb;
-}
-details {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    margin: 14px 0;
-    padding: 14px 18px;
-}
-summary {
-    font-weight: bold;
-    color: #1f4e79;
-    cursor: pointer;
-}
-.status-ok { color: #1b7f3a; font-weight: bold; }
-.status-progress { color: #b36b00; font-weight: bold; }
-.status-pending { color: #777; font-weight: bold; }
-.kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-    margin-top: 15px;
-}
-.kpi {
-    background: #eef4fb;
-    border-radius: 10px;
-    padding: 16px;
-    border: 1px solid #d7e5f4;
-}
-.kpi .value {
-    font-size: 24px;
-    font-weight: bold;
-    color: #1f4e79;
-}
-.kpi .label {
-    font-size: 13px;
-    margin-top: 6px;
-}
-.small {
-    color: #666;
-    font-size: 12px;
-}
-a {
-    color: #1f4e79;
-    font-weight: bold;
-}
+*, *::before, *::after { box-sizing: border-box; }
+body { font-family: Arial, sans-serif; margin: 0; background: #f0f4f9; color: #1a1a2e; font-size: 14px; }
+
+header { background: linear-gradient(135deg,#1f4e79 0%,#2e6da4 100%); color: white; padding: 28px 48px 24px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px; }
+header h1 { margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+header .subtitle { font-size: 13px; opacity: .85; margin-top: 4px; }
+header .updated { font-size: 12px; opacity: .7; text-align: right; }
+
+.tab-bar { background: white; border-bottom: 2px solid #d8e6f3; padding: 0 48px; display: flex; gap: 0; overflow-x: auto; }
+.tab-bar button { background: none; border: none; border-bottom: 3px solid transparent; margin-bottom: -2px; padding: 14px 20px; font-size: 13px; font-weight: 600; color: #5a7a9a; cursor: pointer; white-space: nowrap; transition: color .15s, border-color .15s; }
+.tab-bar button:hover { color: #1f4e79; }
+.tab-bar button.active { color: #1f4e79; border-bottom-color: #1f4e79; }
+
+.tabcontent { display: none; padding: 32px 48px; max-width: 1200px; margin: 0 auto; }
+
+.card { background: white; border: 1px solid #dce8f3; border-radius: 12px; padding: 24px 28px; margin-bottom: 20px; }
+.card-title { font-size: 15px; font-weight: 700; color: #1f4e79; margin: 0 0 16px; padding-bottom: 10px; border-bottom: 1px solid #eaf0f8; }
+
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: 14px; margin-bottom: 20px; }
+.kpi { background: #f4f8fd; border: 1px solid #d3e5f5; border-radius: 10px; padding: 16px 14px; text-align: center; }
+.kpi .val { font-size: 26px; font-weight: 800; color: #1f4e79; line-height: 1.1; }
+.kpi .lbl { font-size: 11px; color: #5a7a9a; margin-top: 5px; text-transform: uppercase; letter-spacing: .4px; }
+
+.badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .3px; }
+.badge-ok      { background: #e6f4ea; color: #1b7f3a; }
+.badge-wip     { background: #fff3e0; color: #b36b00; }
+.badge-pending { background: #f0f0f0; color: #777; }
+
+/* Hallazgos expandidos */
+.findings-list { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
+.finding-item { display: flex; gap: 14px; align-items: flex-start; }
+.finding-num { background: #1f4e79; color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+.finding-body { flex: 1; }
+.finding-title { font-weight: 700; font-size: 13px; color: #1f4e79; margin-bottom: 3px; }
+.finding-desc  { font-size: 13px; color: #3a4a5a; line-height: 1.6; }
+.finding-implication { font-size: 12px; color: #5a7a9a; margin-top: 4px; font-style: italic; }
+
+/* Gráficos */
+.chart-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(480px,1fr)); gap: 16px; margin-top: 4px; }
+.chart-box { background: #fafcff; border: 1px solid #dce8f3; border-radius: 10px; padding: 16px; }
+.chart-box .chart-lbl { font-size: 12px; font-weight: 700; color: #5a7a9a; text-transform: uppercase; letter-spacing: .4px; margin-bottom: 10px; }
+.chart-wrap { width: 100%; overflow-x: auto; }
+.chart-wrap .plotly-graph-div { width: 100% !important; }
+.chart-pending { color: #aaa; font-style: italic; font-size: 13px; padding: 20px 0; text-align: center; }
+
+/* Roadmap */
+.roadmap { display: flex; flex-direction: column; gap: 0; }
+.roadmap-item { display: flex; align-items: flex-start; gap: 16px; padding: 14px 0; border-bottom: 1px solid #eaf0f8; }
+.roadmap-item:last-child { border-bottom: none; }
+.roadmap-dot { width: 14px; height: 14px; border-radius: 50%; margin-top: 3px; flex-shrink: 0; }
+.dot-ok { background: #1b7f3a; } .dot-wip { background: #f0a500; } .dot-pending { background: #ccc; }
+.roadmap-fase { font-weight: 700; font-size: 13px; color: #1a1a2e; }
+.roadmap-comment { font-size: 12px; color: #6a7a8a; margin-top: 2px; }
+
+table { border-collapse: collapse; width: 100%; margin-top: 8px; }
+th, td { border: 1px solid #dce8f3; padding: 9px 12px; text-align: left; vertical-align: top; font-size: 13px; }
+th { background: #f0f5fb; font-weight: 700; color: #3a5a7a; font-size: 12px; text-transform: uppercase; letter-spacing: .3px; }
+tr:hover td { background: #fafcff; }
+
+details { border: 1px solid #dce8f3; border-radius: 10px; margin-bottom: 12px; background: white; }
+details[open] { box-shadow: 0 1px 4px rgba(31,78,121,.06); }
+summary { padding: 13px 18px; font-weight: 700; font-size: 13px; color: #1f4e79; cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; }
+summary::before { content: "▶"; font-size: 9px; color: #aac; transition: transform .2s; }
+details[open] summary::before { transform: rotate(90deg); }
+.details-body { padding: 0 18px 16px; }
+
+/* Disclaimer */
+.disclaimer { background: #fff8e1; border: 1px solid #ffe082; border-radius: 10px; padding: 14px 18px; margin-bottom: 20px; display: flex; gap: 12px; align-items: flex-start; }
+.disclaimer-icon { font-size: 20px; flex-shrink: 0; }
+.disclaimer-text { font-size: 13px; color: #5a4000; line-height: 1.6; }
+.disclaimer-text b { color: #3a2800; }
+
+/* Diccionario / buscador */
+.dict-search-wrap { position: relative; margin-bottom: 16px; }
+.dict-search { width: 100%; padding: 10px 16px 10px 40px; border: 1px solid #d0e0f0; border-radius: 8px; font-size: 14px; outline: none; transition: border-color .15s; }
+.dict-search:focus { border-color: #1f4e79; box-shadow: 0 0 0 3px rgba(31,78,121,.1); }
+.dict-search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #9ab; font-size: 15px; }
+.dict-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.dict-filter-btn { background: #f0f5fb; border: 1px solid #d0e0f0; border-radius: 20px; padding: 5px 14px; font-size: 12px; font-weight: 600; color: #5a7a9a; cursor: pointer; transition: all .15s; }
+.dict-filter-btn:hover, .dict-filter-btn.active { background: #1f4e79; color: white; border-color: #1f4e79; }
+.dict-count { font-size: 12px; color: #8a9aaa; margin-bottom: 10px; }
+#dict-table tbody tr.hidden { display: none; }
+#dict-table td.var-name { font-family: monospace; font-size: 12px; color: #1f4e79; font-weight: 700; }
+#dict-table td.var-desc { font-size: 12px; line-height: 1.5; max-width: 400px; }
+#dict-table td.var-uso  { font-size: 12px; color: #5a7a9a; font-style: italic; }
+
+/* Fuentes */
+.sources-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 12px; margin-top: 8px; }
+.source-card { border: 1px solid #dce8f3; border-radius: 10px; padding: 14px 16px; background: white; }
+.source-card .src-name { font-weight: 700; font-size: 13px; color: #1f4e79; margin-bottom: 4px; }
+.source-card .src-papel { font-size: 12px; color: #5a7a9a; margin-bottom: 8px; line-height: 1.4; }
+
+/* Modelos */
+.modelo-card { border: 1px solid #dce8f3; border-radius: 10px; padding: 18px 20px; margin-bottom: 12px; background: white; display: flex; align-items: flex-start; gap: 18px; }
+.modelo-num { background: #eaf0f8; color: #1f4e79; font-weight: 800; font-size: 18px; border-radius: 8px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.modelo-info .modelo-title { font-weight: 700; font-size: 14px; color: #1f4e79; margin-bottom: 4px; }
+.modelo-info .modelo-desc  { font-size: 13px; color: #4a6a8a; line-height: 1.5; }
+.modelo-info .modelo-meta  { font-size: 12px; color: #8a9aaa; margin-top: 6px; }
+
+/* Descargas */
+.download-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #eaf0f8; gap: 12px; flex-wrap: wrap; }
+.download-item:last-child { border-bottom: none; }
+.dl-name { font-weight: 700; font-size: 13px; }
+.dl-meta { font-size: 11px; color: #888; margin-top: 2px; }
+.dl-btn { background: #1f4e79; color: white !important; text-decoration: none; padding: 7px 16px; border-radius: 6px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+.dl-btn:hover { background: #2e6da4; }
+
+ul { margin: 0; padding-left: 18px; } li { margin-bottom: 5px; line-height: 1.5; }
+a { color: #1f4e79; } .small { font-size: 11px; color: #888; } .empty { color: #aaa; font-style: italic; font-size: 13px; }
+.section-lbl { font-size: 11px; font-weight: 700; color: #8aa5c0; text-transform: uppercase; letter-spacing: .6px; margin: 20px 0 8px; }
 </style>
-
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
 <script>
-function openTab(evt, tabName) {
-    var i, tabcontent, tablinks;
+function openTab(evt, id) {
+    document.querySelectorAll('.tabcontent').forEach(t => t.style.display='none');
+    document.querySelectorAll('.tab-bar button').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).style.display='block';
+    evt.currentTarget.classList.add('active');
+    if (window.Plotly)
+        document.querySelectorAll('#'+id+' .plotly-graph-div')
+            .forEach(d => Plotly.relayout(d,{autosize:true}));
+}
 
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
+// ── Diccionario buscador ──────────────────────────────────────────────────
+function dictFilter() {
+    const q     = document.getElementById('dict-q').value.toLowerCase().trim();
+    const bbdd  = document.querySelector('.dict-filter-btn.active')?.dataset.bbdd || 'all';
+    const rows  = document.querySelectorAll('#dict-table tbody tr');
+    let visible = 0;
+    rows.forEach(tr => {
+        const txt  = tr.textContent.toLowerCase();
+        const rowBbdd = tr.dataset.bbdd || '';
+        const matchQ    = !q || txt.includes(q);
+        const matchBbdd = bbdd === 'all' || rowBbdd === bbdd;
+        if (matchQ && matchBbdd) { tr.classList.remove('hidden'); visible++; }
+        else                     { tr.classList.add('hidden'); }
+    });
+    document.getElementById('dict-count').textContent =
+        visible + ' variable' + (visible !== 1 ? 's' : '');
+}
 
-    tablinks = document.getElementsByClassName("tablink");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
+function dictSetBbdd(btn, bbdd) {
+    document.querySelectorAll('.dict-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    btn.dataset.bbdd = bbdd;  // ya está en el HTML, pero por si acaso
+    dictFilter();
 }
 </script>
 </head>
-
 <body>
-
 <header>
-<h1>TFM · Impacto económico de desastres naturales en España</h1>
-<p>Portal automático de seguimiento del proyecto: datos, avances, modelos y descargas.</p>
-<p><b>Última actualización:</b> 01/07/2026 01:02</p>
+  <div>
+    <h1>TFM · Impacto económico de desastres naturales en España</h1>
+    <div class="subtitle">Portal de seguimiento automático del proyecto</div>
+  </div>
+  <div class="updated">Última actualización<br><b>01/07/2026 01:06</b></div>
 </header>
-
-<div class="tabs">
-<button class="tablink active" onclick="openTab(event, 'inicio')">Inicio</button><button class="tablink" onclick="openTab(event, 'datos')">Datos</button><button class="tablink" onclick="openTab(event, 'cnih')">CNIH</button><button class="tablink" onclick="openTab(event, 'aemet')">AEMET</button><button class="tablink" onclick="openTab(event, 'modelos')">Modelos</button><button class="tablink" onclick="openTab(event, 'descargas')">Descargas</button>
-</div>
-
+<div class="tab-bar"><button class="tablink  active" onclick="openTab(event,'inicio')">Inicio</button><button class="tablink" onclick="openTab(event,'cnih')">CNIH</button><button class="tablink" onclick="openTab(event,'aemet')">AEMET</button><button class="tablink" onclick="openTab(event,'diccionario')">📖 Variables</button><button class="tablink" onclick="openTab(event,'modelos')">Modelos</button><button class="tablink" onclick="openTab(event,'descargas')">Descargas</button></div>
 
     <div id="inicio" class="tabcontent" style="display:block">
-
         <div class="card">
-            <h2>Resumen ejecutivo</h2>
-            <p>
-            El objetivo del TFM es construir una base analítica para estimar y explicar el impacto económico de fenómenos naturales extraordinarios en España.
-            El proyecto combina fuentes de inundaciones, incendios, indemnizaciones, meteorología y exposición territorial.
-            </p>
-            <p>
-            Este portal se actualiza automáticamente a partir de los resúmenes generados por los notebooks. Los análisis, rankings y variables clave proceden de archivos JSON internos, no de texto escrito manualmente en el HTML.
-            </p>
-        </div>
-
-        <div class="card">
-            <h2>Objetivo y enfoque</h2>
-            <table>
-                <tr><th>Elemento</th><th>Descripción</th></tr>
-                <tr><td>Problema</td><td>Entender qué factores explican un mayor impacto económico ante fenómenos naturales extraordinarios.</td></tr>
-                <tr><td>Enfoque</td><td>Integración de múltiples fuentes: eventos históricos, daño económico, meteorología y exposición territorial.</td></tr>
-                <tr><td>Resultado esperado</td><td>Dataset analítico final y modelos de segmentación, predicción e índice de riesgo.</td></tr>
-            </table>
-        </div>
-
-        <div class="card">
-            <h2>Roadmap simplificado</h2>
-            <table>
-                <tr><th>Fase</th><th>Estado</th><th>Comentario</th></tr>
-                <tr><td>1. Base CNIH</td><td class="status-ok">Completado</td><td>Dataset base de inundaciones generado y disponible en descargas.</td></tr>
-                <tr><td>2. Enriquecimiento CNIH</td><td class="status-progress">En curso</td><td>Validación de calado, caudal, ARPSI y variables territoriales.</td></tr>
-                <tr><td>3. Nuevas fuentes</td><td class="status-pending">Siguiente paso</td><td>Incorporación de EGIF, CCS, meteorología e INE.</td></tr>
-                <tr><td>4. Dataset final</td><td class="status-pending">Pendiente</td><td>Integración de fuentes para modelado.</td></tr>
-                <tr><td>5. Modelos</td><td class="status-pending">Pendiente</td><td>Segmentación territorial, predicción de impacto económico e índice de riesgo.</td></tr>
-            </table>
-        </div>
-
-        <div class="card">
-            <h2>Cómo usar el portal</h2>
-            <table>
-                <tr><th>Sección</th><th>Contenido</th></tr>
-                <tr><td>Datos</td><td>Fuentes con resumen.</td></tr>
-                <tr><td>CNIH / futuras fuentes</td><td>Pestañas generadas automáticamente desde los notebooks.</td></tr>
-                <tr><td>Modelos</td><td>Diseño preliminar de los modelos previstos.</td></tr>
-            </table>
-        </div>
-
+            <div class="card-title">Estado del proyecto</div>
+            
+    <div class="kpi-row">
+        <div class="kpi"><div class="val">0/2</div><div class="lbl">BBDD con EDA</div></div>
+        <div class="kpi"><div class="val">6</div><div class="lbl">Fuentes previstas</div></div>
+        <div class="kpi"><div class="val">1/5</div><div class="lbl">Fases completadas</div></div>
     </div>
-    
-    <div id="datos" class="tabcontent">
-
-        <div class="card">
-            <h2>Fuentes con resumen</h2>
-            <table>
-                <tr><th>Fuente</th><th>Tipo</th><th>Estado</th><th>Siguiente paso</th></tr>
-                
-        <tr>
-            <td><b>Dataset base unificado CNIH</b></td>
-            <td>Inundaciones</td>
-            <td>Dataset construido</td>
-            <td>-</td>
-        </tr>
-        
-        <tr>
-            <td><b>AEMET / GHCN · Meteorología</b></td>
-            <td>Meteorología</td>
-            <td>Análisis inicial construido</td>
-            <td>Agregar meteorología por evento CNIH.</td>
-        </tr>
-        
-            </table>
+            <div class="roadmap">
+    <div class="roadmap-item">
+        <div class="roadmap-dot dot-ok"></div>
+        <div>
+            <div class="roadmap-fase">1. Dataset base CNIH <span class="badge badge-ok">Completado</span></div>
+            <div class="roadmap-comment">Dataset evento–municipio construido y disponible en descargas.</div>
         </div>
-
-
-        <div class="card">
-            <h2>Fuentes previstas</h2>
-            <table>
-                <tr>
-                    <th>Fuente</th>
-                    <th>Papel en el proyecto</th>
-                    <th>Origen de los datos</th>
-                    <th>Descargada</th>
-                    <th>Estado</th>
-                </tr>
-                
-                    <tr>
-                        <td>CNIH</td>
-                        <td>Fuente principal para inundaciones.</td>
-                        <td>
-                            <a href="https://www.miteco.gob.es/es/agua/temas/gestion-de-los-riesgos-de-inundacion/cnih.html" target="_blank">
-                                🔗 Portal CNIH (MITECO)
-                            </a>
-                        </td>
-                        <td>Sí</td>
-                        <td class="status-ok">En construcción</td>
-                    </tr>
-                    
-                    <tr>
-                        <td>EGIF / Copernicus</td>
-                        <td>Fuente principal para incendios forestales.</td>
-                        <td>
-                            <a href="https://forest-fire.emergency.copernicus.eu/" target="_blank">
-                                🔗 Copernicus EFFIS
-                            </a>
-                        </td>
-                        <td>Pendiente</td>
-                        <td class="status-pending">Pendiente</td>
-                    </tr>
-                    
-                    <tr>
-                        <td>Incendios MITECO</td>
-                        <td>Estadísticas oficiales de incendios forestales en España.</td>
-                        <td>
-                            <a href="https://www.miteco.gob.es/es/biodiversidad/temas/incendios-forestales/estadisticas-datos.html" target="_blank">
-                                🔗 MITECO - Estadísticas incendios
-                            </a>
-                        </td>
-                        <td>Pendiente</td>
-                        <td class="status-pending">Pendiente</td>
-                    </tr>
-                    
-                    <tr>
-                        <td>CCS</td>
-                        <td>Validación económica agregada.</td>
-                        <td>
-                            <a href="https://www.consorseguros.es/" target="_blank">
-                                🔗 Consorcio de Compensación de Seguros
-                            </a>
-                        </td>
-                        <td>Explorada</td>
-                        <td class="status-progress">Revisado inicialmente</td>
-                    </tr>
-                    
-                    <tr>
-                        <td>INE</td>
-                        <td>Población y exposición territorial.</td>
-                        <td>
-                            <a href="https://www.ine.es/" target="_blank">
-                                🔗 Instituto Nacional de Estadística
-                            </a>
-                        </td>
-                        <td>Pendiente</td>
-                        <td class="status-pending">Pendiente</td>
-                    </tr>
-                    
-            </table>
-        </div>
-
     </div>
-    
+    <div class="roadmap-item">
+        <div class="roadmap-dot dot-wip"></div>
+        <div>
+            <div class="roadmap-fase">2. EDA AEMET <span class="badge badge-wip">En Curso</span></div>
+            <div class="roadmap-comment">EDA preliminar 2000–2026 completado. Pendiente ampliar a serie histórica completa.</div>
+        </div>
+    </div>
+    <div class="roadmap-item">
+        <div class="roadmap-dot dot-pending"></div>
+        <div>
+            <div class="roadmap-fase">3. Resto de fuentes <span class="badge badge-pending">Pendiente</span></div>
+            <div class="roadmap-comment">EGIF, CCS, INE y SNCZI por integrar.</div>
+        </div>
+    </div>
+    <div class="roadmap-item">
+        <div class="roadmap-dot dot-pending"></div>
+        <div>
+            <div class="roadmap-fase">4. Feature engineering <span class="badge badge-pending">Pendiente</span></div>
+            <div class="roadmap-comment">Dataset provincia-año-causa unificado para modelado.</div>
+        </div>
+    </div>
+    <div class="roadmap-item">
+        <div class="roadmap-dot dot-pending"></div>
+        <div>
+            <div class="roadmap-fase">5. Modelos <span class="badge badge-pending">Pendiente</span></div>
+            <div class="roadmap-comment">Clasificación, predicción e índice de riesgo.</div>
+        </div>
+    </div></div>
+        </div>
+        <div class="card">
+            <div class="card-title">BBDD analizadas</div>
+            
+        <div style="border:1px solid #dce8f3;border-radius:10px;padding:16px 20px;margin-bottom:10px;background:white">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+                <span style="font-weight:700;color:#1f4e79;font-size:14px">Dataset base unificado CNIH</span>
+                <span class="badge badge-ok">Dataset construido</span>
+            </div>
+            <div style="margin-bottom:8px;font-size:13px"><span style="margin-right:14px"><b>7.713</b> <span class="small">Registros</span></span><span style="margin-right:14px"><b>49</b> <span class="small">Variables</span></span><span style="margin-right:14px"><b>2.837</b> <span class="small">Municipios</span></span></div>
+            <div style="font-size:12px;color:#5a7a9a;line-height:1.4">El dataset final contiene 7.713 registros y 49 variables.</div>
+        </div>
+        <div style="border:1px solid #dce8f3;border-radius:10px;padding:16px 20px;margin-bottom:10px;background:white">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+                <span style="font-weight:700;color:#1f4e79;font-size:14px">AEMET / GHCN · Meteorología</span>
+                <span class="badge badge-ok">Análisis inicial construido</span>
+            </div>
+            <div style="margin-bottom:8px;font-size:13px"><span style="margin-right:14px"><b>6.147.237</b> <span class="small">Registros</span></span><span style="margin-right:14px"><b>27</b> <span class="small">Variables</span></span><span style="margin-right:14px"><b>54</b> <span class="small">Provincias</span></span></div>
+            <div style="font-size:12px;color:#5a7a9a;line-height:1.4">El dataset meteorológico contiene 6.147.237 registros y 27 variables.</div>
+        </div>
+        </div>
+        <div class="card">
+            <div class="card-title">Fuentes del proyecto</div>
+            <table>
+                <tr><th>Fuente</th><th>Papel en el proyecto</th><th>Enlace oficial</th><th>Descargada</th><th>Estado</th></tr>
+                <tr><td><b>CNIH</b></td><td>Fuente principal para inundaciones históricas.</td><td><a href="https://www.miteco.gob.es/es/agua/temas/gestion-de-los-riesgos-de-inundacion/cnih.html" target="_blank" rel="noopener">🔗 Portal CNIH (MITECO)</a></td><td>Sí</td><td><span class="badge badge-ok">EDA completado</span></td></tr><tr><td><b>AEMET</b></td><td>Variables meteorológicas diarias por estación.</td><td><a href="https://opendata.aemet.es/centrodedescargas/inicio" target="_blank" rel="noopener">🔗 AEMET Open Data</a></td><td>Sí (2000–2026)</td><td><span class="badge badge-ok">EDA completado</span></td></tr><tr><td><b>CCS</b></td><td>Validación económica agregada por fenómeno natural.</td><td><a href="https://www.consorseguros.es/" target="_blank" rel="noopener">🔗 Consorcio de Compensación de Seguros</a></td><td>Explorada</td><td><span class="badge badge-wip">Revisión inicial</span></td></tr><tr><td><b>EGIF</b></td><td>Fuente principal para incendios forestales.</td><td><a href="https://www.miteco.gob.es/es/biodiversidad/temas/incendios-forestales/estadisticas-datos.html" target="_blank" rel="noopener">🔗 EGIF (MITECO)</a></td><td>Pendiente</td><td><span class="badge badge-pending">Pendiente</span></td></tr><tr><td><b>INE</b></td><td>Población y exposición territorial por municipio.</td><td><a href="https://www.ine.es/" target="_blank" rel="noopener">🔗 Instituto Nacional de Estadística</a></td><td>Pendiente</td><td><span class="badge badge-pending">Pendiente</span></td></tr><tr><td><b>SNCZI / ARPSI</b></td><td>Zonas oficiales de riesgo potencial de inundación.</td><td><a href="https://snczi.miteco.gob.es/" target="_blank" rel="noopener">🔗 SNCZI (MITECO)</a></td><td>Pendiente</td><td><span class="badge badge-pending">Pendiente</span></td></tr>
+            </table>
+        </div>
+    </div>
     <div id="cnih" class="tabcontent">
 
         <div class="card">
-            <h2>Dataset base unificado CNIH</h2>
-            <p>Entregable generado a partir de CNIH para el análisis de inundaciones</p>
-            <p><b>Estado:</b> <span class="status-ok">Dataset construido</span></p>
-            <div class='kpi-grid'>
-        <div class="kpi">
-            <div class="value">7.713</div>
-            <div class="label">Registros</div>
-        </div>
-        
-        <div class="kpi">
-            <div class="value">49</div>
-            <div class="label">Variables</div>
-        </div>
-        
-        <div class="kpi">
-            <div class="value">2.837</div>
-            <div class="label">Municipios</div>
-        </div>
-        
-        <div class="kpi">
-            <div class="value">675</div>
-            <div class="label">Eventos</div>
-        </div>
-        </div>
-        </div>
-
-        <details open>
-            <summary>Qué hemos hecho para obtener el descargable</summary>
-            <ul><li>Partimos de tablas originales del CNIH exportadas desde Access a CSV.</li><li>Tras un primer análisis, seleccionamoslas tablas útiles para eventos, daños económicos, daños personales y variables hidrológicas.</li><li>Normalizamos fechas, localización y variables económicas.</li><li>Unificamos a nivel evento–municipio.</li><li>El resultado preliminar a la limpieza, está disponible en la pestaña de descargas como el descargable dataset_base_unificado_cnih.csv.Validamos la presencia de variables de calado, caudal y ARPSI mediante indicadores de cobertura.</li></ul>
-        </details>
-
-        <details open>
-            <summary>Resumen ejecutivo del entregable</summary>
-            <ul><li>Este dataset es el entregable principal del bloque CNIH y sirve como base de trabajo para inundaciones.</li><li>Cada registro representa una combinación de evento y municipio afectado.</li><li>El dataset integra información económica, temporal, territorial e hidrológica para facilitar el análisis posterior.</li><li>El objetivo es que pueda cruzarse con otras fuentes como CCS, GHCN/AEMET, INE, SNCZI/ARPSI y EGIF.</li></ul>
-        </details>
-
-        <details open>
-            <summary>Hallazgos principales</summary>
-            <ul><li>El dataset final contiene 7.713 registros y 49 variables.</li><li>La variable económica principal es indemnizacion_ccs_eur.</li><li>La clave principal para relacionar tablas CNIH es CE_COD_EVENTO.</li><li>Se detecta el siguiente gap temporal dentro del rango observado: 2011-2017.</li></ul>
-        </details>
-
-        <details open>
-            <summary>Cobertura temporal y granularidad</summary>
-            <table>
-                <tr><th>Aspecto</th><th>Resultado</th></tr>
-                <tr><td>Granularidad</td><td>Evento + municipio</td></tr>
-                <tr><td>Rango temporal</td><td>1987-2023</td></tr>
-                <tr><td>Gap temporal</td><td>2011-2017</td></tr>
-                <tr><td>Registros económicos</td><td>7.713</td></tr>
-            </table>
-        </details>
-
-        <details>
-            <summary>Ranking territorial detectado</summary>
-            <p>Ranking calculado a partir del dataset generado. No debe interpretarse todavía como ranking definitivo de riesgo.</p>
-            <h3>Municipios</h3>
-            <table><tr><th>#</th><th>Municipio</th><th>Valor acumulado</th></tr><tr><td>1</td><td>Orihuela</td><td>124.357.023 €</td></tr><tr><td>2</td><td>Donostia/San Sebastián</td><td>92.074.141 €</td></tr><tr><td>3</td><td>Los Alcázares</td><td>71.131.849 €</td></tr><tr><td>4</td><td>Murcia</td><td>50.088.635 €</td></tr><tr><td>5</td><td>Santa Cruz de Tenerife</td><td>43.376.336 €</td></tr><tr><td>6</td><td>Cartagena</td><td>36.607.059 €</td></tr><tr><td>7</td><td>Torre-Pacheco</td><td>32.217.506 €</td></tr><tr><td>8</td><td>Tarragona</td><td>31.583.128 €</td></tr><tr><td>9</td><td>Toledo</td><td>26.417.370 €</td></tr><tr><td>10</td><td>València</td><td>23.855.940 €</td></tr></table>
-            <h3>Provincias</h3>
-            <table><tr><th>#</th><th>Provincia</th><th>Valor acumulado</th></tr><tr><td>1</td><td>Alacant/Alicante</td><td>303.796.224 €</td></tr><tr><td>2</td><td>Murcia</td><td>283.146.532 €</td></tr><tr><td>3</td><td>València/Valencia</td><td>216.401.321 €</td></tr><tr><td>4</td><td>Gipuzkoa</td><td>137.744.321 €</td></tr><tr><td>5</td><td>Toledo</td><td>131.664.203 €</td></tr><tr><td>6</td><td>Barcelona</td><td>102.492.562 €</td></tr><tr><td>7</td><td>Madrid</td><td>97.038.530 €</td></tr><tr><td>8</td><td>Bizkaia</td><td>68.618.423 €</td></tr><tr><td>9</td><td>Santa Cruz de Tenerife</td><td>60.193.149 €</td></tr><tr><td>10</td><td>Castelló/Castellón</td><td>54.192.234 €</td></tr></table>
-        </details>
-
-        <details open>
-            <summary>Variables clave para integración</summary>
-            <table><tr><th>Variable</th><th>Uso</th><th>Con qué puede cruzarse</th></tr><tr><td>CE_COD_EVENTO</td><td>Identificador del evento</td><td>Tablas internas CNIH: evento, daño económico, daño personal, calado, caudal y ARPSI</td></tr><tr><td>fecha_inicio / año / mes</td><td>Dimensión temporal</td><td>CCS agregado, GHCN/AEMET y análisis temporal</td></tr><tr><td>municipio / provincia / código municipio</td><td>Dimensión territorial</td><td>INE, CCS por provincia, meteorología y exposición territorial</td></tr><tr><td>indemnizacion_ccs_eur</td><td>Daño económico observado</td><td>Variable objetivo o validación frente a CCS agregado</td></tr><tr><td>calado / caudal / ARPSI</td><td>Severidad física y contexto de riesgo</td><td>SNCZI, variables hidrológicas y capas oficiales de riesgo</td></tr></table>
-        </details>
-
-        <details open>
-            <summary>Relación con otras bases de datos</summary>
-            <table><tr><th>Base</th><th>Relación</th><th>Utilidad</th></tr><tr><td>CCS</td><td>Provincia, año y tipo de fenómeno</td><td>Validar el daño económico agregado frente a indemnizaciones oficiales</td></tr><tr><td>GHCN / AEMET</td><td>Fecha y localización aproximada</td><td>Incorporar precipitación, temperatura u otras variables meteorológicas</td></tr><tr><td>INE</td><td>Municipio/provincia y año</td><td>Normalizar daños por población y exposición territorial</td></tr><tr><td>SNCZI / ARPSI</td><td>Zonas oficiales de riesgo de inundación</td><td>Evaluar si los daños se concentran en áreas oficialmente vulnerables</td></tr><tr><td>EGIF</td><td>Dimensión territorial y temporal compartida</td><td>Construir una visión conjunta de riesgos naturales: inundaciones + incendios</td></tr></table>
-        </details>
-
-        <details>
-            <summary>Limitaciones</summary>
-            <ul><li>No todos los eventos históricos tienen información económica municipal.</li><li>El gap temporal detectado debe tratarse como una limitación antes del modelado.</li><li>Algunas variables hidrológicas presentan cobertura irregular o valores nulos.</li><li>CNIH solo cubre inundaciones; el dataset final deberá integrarse con otras fuentes.</li></ul>
-        </details>
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:14px">
+                <div>
+                    <div style="font-size:18px;font-weight:800;color:#1f4e79">Dataset base unificado CNIH</div>
+                    <div style="font-size:12px;color:#6a8aaa;margin-top:3px">Entregable generado a partir de CNIH para el análisis de inundaciones</div>
+                </div>
+                <span class="badge badge-ok">Dataset construido</span>
+            </div>
+            <div class="kpi-row">
+    <div class="kpi">
+        <div class="val">7.713</div>
+        <div class="lbl">Registros</div>
     </div>
-    
+    <div class="kpi">
+        <div class="val">49</div>
+        <div class="lbl">Variables</div>
+    </div>
+    <div class="kpi">
+        <div class="val">2.837</div>
+        <div class="lbl">Municipios</div>
+    </div>
+    <div class="kpi">
+        <div class="val">675</div>
+        <div class="lbl">Eventos</div>
+    </div></div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Hallazgos clave</div>
+            <div class="findings-list">
+        <div class="finding-item">
+            <div class="finding-num">1</div>
+            <div class="finding-body"><div class="finding-desc">El dataset final contiene 7.713 registros y 49 variables.</div></div>
+        </div>
+        <div class="finding-item">
+            <div class="finding-num">2</div>
+            <div class="finding-body"><div class="finding-desc">La variable económica principal es indemnizacion_ccs_eur.</div></div>
+        </div>
+        <div class="finding-item">
+            <div class="finding-num">3</div>
+            <div class="finding-body"><div class="finding-desc">La clave principal para relacionar tablas CNIH es CE_COD_EVENTO.</div></div>
+        </div>
+        <div class="finding-item">
+            <div class="finding-num">4</div>
+            <div class="finding-body"><div class="finding-desc">Se detecta el siguiente gap temporal dentro del rango observado: 2011-2017.</div></div>
+        </div></div>
+        </div>
+
+        
+
+        <details open><summary>Cobertura</summary><div class="details-body"><table><tr><th>Aspecto</th><th>Resultado</th></tr><tr><td>Granularidad</td><td>Evento + municipio</td></tr><tr><td>Rango temporal</td><td>1987-2023</td></tr><tr><td>Años sin datos</td><td>2011-2017</td></tr><tr><td>Registros económicos</td><td>7713</td></tr></table></div></details>
+        
+        
+        
+        <details><summary>Ranking territorial por indemnización CCS</summary><div class="details-body">
+            <p class="section-lbl">Municipios</p>
+            <table><tr><th>#</th><th>Municipio</th><th>Valor</th></tr><tr><td>1</td><td>Orihuela</td><td>124.357.023 €</td></tr><tr><td>2</td><td>Donostia/San Sebastián</td><td>92.074.141 €</td></tr><tr><td>3</td><td>Los Alcázares</td><td>71.131.849 €</td></tr><tr><td>4</td><td>Murcia</td><td>50.088.635 €</td></tr><tr><td>5</td><td>Santa Cruz de Tenerife</td><td>43.376.336 €</td></tr><tr><td>6</td><td>Cartagena</td><td>36.607.059 €</td></tr><tr><td>7</td><td>Torre-Pacheco</td><td>32.217.506 €</td></tr><tr><td>8</td><td>Tarragona</td><td>31.583.128 €</td></tr><tr><td>9</td><td>Toledo</td><td>26.417.370 €</td></tr><tr><td>10</td><td>València</td><td>23.855.940 €</td></tr></table>
+            <p class="section-lbl" style="margin-top:16px">Provincias</p>
+            <table><tr><th>#</th><th>Provincia</th><th>Valor</th></tr><tr><td>1</td><td>Alacant/Alicante</td><td>303.796.224 €</td></tr><tr><td>2</td><td>Murcia</td><td>283.146.532 €</td></tr><tr><td>3</td><td>València/Valencia</td><td>216.401.321 €</td></tr><tr><td>4</td><td>Gipuzkoa</td><td>137.744.321 €</td></tr><tr><td>5</td><td>Toledo</td><td>131.664.203 €</td></tr><tr><td>6</td><td>Barcelona</td><td>102.492.562 €</td></tr><tr><td>7</td><td>Madrid</td><td>97.038.530 €</td></tr><tr><td>8</td><td>Bizkaia</td><td>68.618.423 €</td></tr><tr><td>9</td><td>Santa Cruz de Tenerife</td><td>60.193.149 €</td></tr><tr><td>10</td><td>Castelló/Castellón</td><td>54.192.234 €</td></tr></table>
+        </div></details>
+
+        <details><summary>Variables clave para integración</summary><div class="details-body">
+            <table><tr><th>Variable</th><th>Uso</th><th>Con qué se cruza</th></tr><tr><td>CE_COD_EVENTO</td><td>Identificador del evento</td><td>Tablas internas CNIH: evento, daño económico, daño personal, calado, caudal y ARPSI</td></tr><tr><td>fecha_inicio / año / mes</td><td>Dimensión temporal</td><td>CCS agregado, GHCN/AEMET y análisis temporal</td></tr><tr><td>municipio / provincia / código municipio</td><td>Dimensión territorial</td><td>INE, CCS por provincia, meteorología y exposición territorial</td></tr><tr><td>indemnizacion_ccs_eur</td><td>Daño económico observado</td><td>Variable objetivo o validación frente a CCS agregado</td></tr><tr><td>calado / caudal / ARPSI</td><td>Severidad física y contexto de riesgo</td><td>SNCZI, variables hidrológicas y capas oficiales de riesgo</td></tr></table>
+        </div></details>
+
+        <details><summary>Relación con otras bases de datos</summary><div class="details-body">
+            <table><tr><th>BBDD</th><th>Relación</th><th>Utilidad</th></tr><tr><td>CCS</td><td>Provincia, año y tipo de fenómeno</td><td>Validar el daño económico agregado frente a indemnizaciones oficiales</td></tr><tr><td>GHCN / AEMET</td><td>Fecha y localización aproximada</td><td>Incorporar precipitación, temperatura u otras variables meteorológicas</td></tr><tr><td>INE</td><td>Municipio/provincia y año</td><td>Normalizar daños por población y exposición territorial</td></tr><tr><td>SNCZI / ARPSI</td><td>Zonas oficiales de riesgo de inundación</td><td>Evaluar si los daños se concentran en áreas oficialmente vulnerables</td></tr><tr><td>EGIF</td><td>Dimensión territorial y temporal compartida</td><td>Construir una visión conjunta de riesgos naturales: inundaciones + incendios</td></tr></table>
+        </div></details>
+
+        <details><summary>Próximos pasos</summary><div class="details-body">
+            <table><tr><th>Tarea</th><th>Estado</th></tr><tr><td>Dataset base CNIH construido</td><td><span class='badge badge-ok'>completado</span></td></tr></table>
+        </div></details>
+
+        <details><summary>Limitaciones conocidas</summary><div class="details-body">
+            <ul><li>No todos los eventos históricos tienen información económica municipal.</li><li>El gap temporal detectado debe tratarse como una limitación antes del modelado.</li><li>Algunas variables hidrológicas presentan cobertura irregular o valores nulos.</li><li>CNIH solo cubre inundaciones; el dataset final deberá integrarse con otras fuentes.</li></ul>
+        </div></details>
+
+    </div>
     <div id="aemet" class="tabcontent">
 
         <div class="card">
-            <h2>AEMET / GHCN · Meteorología</h2>
-            <p>Análisis de la base meteorológica consolidada para enriquecer eventos naturales</p>
-            <p><b>Estado:</b> <span class="status-ok">Análisis inicial construido</span></p>
-            <div class='kpi-grid'>
-        <div class="kpi">
-            <div class="value">6.147.237</div>
-            <div class="label">Registros</div>
-        </div>
-        
-        <div class="kpi">
-            <div class="value">27</div>
-            <div class="label">Variables</div>
-        </div>
-        
-        <div class="kpi">
-            <div class="value">54</div>
-            <div class="label">Provincias</div>
-        </div>
-        
-        <div class="kpi">
-            <div class="value">-</div>
-            <div class="label">Estaciones</div>
-        </div>
-        </div>
-        </div>
-
-        <details open>
-            <summary>Qué hemos hecho para obtener el descargable</summary>
-            <ul><li>Se cargó la base meteorológica consolidada en local.</li><li>Se revisó su cobertura temporal y territorial.</li><li>Se identificaron las variables meteorológicas útiles para cruce con CNIH.</li><li>Se generó un resumen interno para el portal sin publicar el CSV grande.</li></ul>
-        </details>
-
-        <details open>
-            <summary>Resumen ejecutivo del entregable</summary>
-            <ul><li>Se ha consolidado una base meteorológica histórica para analizar variables climáticas asociadas a fenómenos naturales.</li><li>El objetivo es utilizar esta fuente como variable explicativa en el dataset final del TFM.</li><li>La base completa no se publica en GitHub por su tamaño; el portal solo recoge los resultados del análisis.</li></ul>
-        </details>
-
-        <details open>
-            <summary>Hallazgos principales</summary>
-            <ul><li>El dataset meteorológico contiene 6.147.237 registros y 27 variables.</li><li>La cobertura temporal observada es 2000-01-01 - 2026-06-26.</li><li>El dataset contiene información de 54 provincias y - estaciones.</li><li>La base no se publica como descargable por su tamaño; solo se publican los resultados útiles en el portal.</li><li>La utilidad principal es enriquecer CNIH con variables meteorológicas por fecha y territorio.</li></ul>
-        </details>
-
-        <details open>
-            <summary>Cobertura temporal y granularidad</summary>
-            <table>
-                <tr><th>Aspecto</th><th>Resultado</th></tr>
-                <tr><td>Granularidad</td><td>Estación / fecha / territorio</td></tr>
-                <tr><td>Rango temporal</td><td>2000-01-01 - 2026-06-26</td></tr>
-                <tr><td>Gap temporal</td><td>Pendiente de validar</td></tr>
-                <tr><td>Registros económicos</td><td>-</td></tr>
-            </table>
-        </details>
-
-        <details>
-            <summary>Ranking territorial detectado</summary>
-            <p>Ranking calculado a partir del dataset generado. No debe interpretarse todavía como ranking definitivo de riesgo.</p>
-            <h3>Municipios</h3>
-            <p>Pendiente de informar.</p>
-            <h3>Provincias</h3>
-            <p>Pendiente de informar.</p>
-        </details>
-
-        <details open>
-            <summary>Variables clave para integración</summary>
-            <table><tr><th>Variable</th><th>Uso</th><th>Con qué puede cruzarse</th></tr><tr><td>fecha</td><td>Dimensión temporal</td><td>Fecha de inicio del evento CNIH</td></tr><tr><td>provincia / municipio / coordenadas</td><td>Dimensión territorial</td><td>Municipio o provincia del evento CNIH</td></tr><tr><td>tmin</td><td>Variable meteorológica</td><td>97.02% de cobertura</td></tr><tr><td>tmax</td><td>Variable meteorológica</td><td>97.05% de cobertura</td></tr></table>
-        </details>
-
-        <details open>
-            <summary>Relación con otras bases de datos</summary>
-            <table><tr><th>Base</th><th>Relación</th><th>Utilidad</th></tr><tr><td>CNIH</td><td>Cruce por fecha y territorio</td><td>Añadir contexto meteorológico a eventos de inundación</td></tr><tr><td>EGIF</td><td>Cruce por fecha y territorio</td><td>Añadir contexto meteorológico a incendios forestales</td></tr><tr><td>INE</td><td>Cruce territorial</td><td>Combinar meteorología con exposición poblacional</td></tr></table>
-        </details>
-
-        <details>
-            <summary>Limitaciones</summary>
-            <ul><li>El archivo completo es demasiado grande para publicarlo en GitHub.</li><li>Será necesario definir el nivel de agregación adecuado antes del cruce con CNIH.</li><li>Debe validarse la cobertura real por provincia, estación y periodo temporal.</li></ul>
-        </details>
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:14px">
+                <div>
+                    <div style="font-size:18px;font-weight:800;color:#1f4e79">AEMET / GHCN · Meteorología</div>
+                    <div style="font-size:12px;color:#6a8aaa;margin-top:3px">Análisis de la base meteorológica consolidada para enriquecer eventos naturales</div>
+                </div>
+                <span class="badge badge-ok">Análisis inicial construido</span>
+            </div>
+            <div class="kpi-row">
+    <div class="kpi">
+        <div class="val">6.147.237</div>
+        <div class="lbl">Registros</div>
     </div>
-    
-    <div id="modelos" class="tabcontent">
+    <div class="kpi">
+        <div class="val">27</div>
+        <div class="lbl">Variables</div>
+    </div>
+    <div class="kpi">
+        <div class="val">54</div>
+        <div class="lbl">Provincias</div>
+    </div>
+    <div class="kpi">
+        <div class="val">-</div>
+        <div class="lbl">Estaciones</div>
+    </div></div>
+        </div>
+
         <div class="card">
-            <h2>Diseño preliminar de modelos</h2>
-            <table>
-                <tr><th>Modelo</th><th>Objetivo</th><th>Fuentes esperadas</th><th>Estado</th></tr>
-                <tr><td>Modelo 1</td><td>Identificar perfiles territoriales de riesgo.</td><td>CNIH, EGIF, CCS, INE</td><td class="status-pending">Pendiente</td></tr>
-                <tr><td>Modelo 2</td><td>Predecir impacto económico esperado.</td><td>CNIH, EGIF, AEMET, INE, CCS</td><td class="status-pending">Pendiente</td></tr>
-                <tr><td>Modelo 3</td><td>Construir un índice de riesgo futuro por territorio.</td><td>Dataset integrado final</td><td class="status-pending">Pendiente</td></tr>
+            <div class="card-title">Hallazgos clave</div>
+            <div class="findings-list">
+        <div class="finding-item">
+            <div class="finding-num">1</div>
+            <div class="finding-body"><div class="finding-desc">El dataset meteorológico contiene 6.147.237 registros y 27 variables.</div></div>
+        </div>
+        <div class="finding-item">
+            <div class="finding-num">2</div>
+            <div class="finding-body"><div class="finding-desc">La cobertura temporal observada es 2000-01-01 - 2026-06-26.</div></div>
+        </div>
+        <div class="finding-item">
+            <div class="finding-num">3</div>
+            <div class="finding-body"><div class="finding-desc">El dataset contiene información de 54 provincias y - estaciones.</div></div>
+        </div>
+        <div class="finding-item">
+            <div class="finding-num">4</div>
+            <div class="finding-body"><div class="finding-desc">La base no se publica como descargable por su tamaño; solo se publican los resultados útiles en el portal.</div></div>
+        </div>
+        <div class="finding-item">
+            <div class="finding-num">5</div>
+            <div class="finding-body"><div class="finding-desc">La utilidad principal es enriquecer CNIH con variables meteorológicas por fecha y territorio.</div></div>
+        </div></div>
+        </div>
+
+        
+
+        <details open><summary>Cobertura</summary><div class="details-body"><table><tr><th>Aspecto</th><th>Resultado</th></tr><tr><td>Granularidad</td><td>Estación / fecha / territorio</td></tr><tr><td>Rango temporal</td><td>2000-01-01 - 2026-06-26</td></tr><tr><td>Años sin datos</td><td>Pendiente de validar</td></tr><tr><td>Registros económicos</td><td>-</td></tr></table></div></details>
+        
+        
+        
+        <details><summary>Rankings meteorológicos</summary><div class="details-body">
+            <p class="section-lbl">Precipitación máxima diaria histórica</p>
+            <p class="empty">Pendiente.</p>
+            <p class="section-lbl" style="margin-top:16px">Racha de viento máxima histórica</p>
+            <p class="empty">Pendiente.</p>
+        </div></details>
+
+        <details><summary>Variables clave para integración</summary><div class="details-body">
+            <table><tr><th>Variable</th><th>Uso</th><th>Con qué se cruza</th></tr><tr><td>fecha</td><td>Dimensión temporal</td><td>Fecha de inicio del evento CNIH</td></tr><tr><td>provincia / municipio / coordenadas</td><td>Dimensión territorial</td><td>Municipio o provincia del evento CNIH</td></tr><tr><td>tmin</td><td>Variable meteorológica</td><td>97.02% de cobertura</td></tr><tr><td>tmax</td><td>Variable meteorológica</td><td>97.05% de cobertura</td></tr></table>
+        </div></details>
+
+        <details><summary>Relación con otras bases de datos</summary><div class="details-body">
+            <table><tr><th>BBDD</th><th>Relación</th><th>Utilidad</th></tr><tr><td>CNIH</td><td>Cruce por fecha y territorio</td><td>Añadir contexto meteorológico a eventos de inundación</td></tr><tr><td>EGIF</td><td>Cruce por fecha y territorio</td><td>Añadir contexto meteorológico a incendios forestales</td></tr><tr><td>INE</td><td>Cruce territorial</td><td>Combinar meteorología con exposición poblacional</td></tr></table>
+        </div></details>
+
+        <details><summary>Próximos pasos</summary><div class="details-body">
+            <table><tr><th>Tarea</th><th>Estado</th></tr><tr><td>Análisis inicial AEMET/GHCN</td><td><span class='badge badge-ok'>completado</span></td></tr><tr><td>Validar cobertura temporal y territorial</td><td><span class='badge badge-pending'>pendiente</span></td></tr><tr><td>Agregar variables meteorológicas por evento CNIH</td><td><span class='badge badge-pending'>pendiente</span></td></tr><tr><td>Preparar cruce con EGIF</td><td><span class='badge badge-pending'>pendiente</span></td></tr></table>
+        </div></details>
+
+        <details><summary>Limitaciones conocidas</summary><div class="details-body">
+            <ul><li>El archivo completo es demasiado grande para publicarlo en GitHub.</li><li>Será necesario definir el nivel de agregación adecuado antes del cruce con CNIH.</li><li>Debe validarse la cobertura real por provincia, estación y periodo temporal.</li></ul>
+        </div></details>
+
+    </div>
+    <div id="diccionario" class="tabcontent">
+        <div class="card">
+            <div class="card-title">Diccionario de variables</div>
+            <p style="font-size:13px;color:#5a7a9a;margin-bottom:16px">
+                Referencia de todas las variables del proyecto: origen, tipo, descripción y papel en el modelo.
+                Usa el buscador para localizar cualquier campo por nombre, fuente o palabra clave.
+            </p>
+
+            <div class="dict-search-wrap">
+                <span class="dict-search-icon">🔍</span>
+                <input id="dict-q" class="dict-search" type="text"
+                    placeholder="Buscar por nombre, descripción, fuente..."
+                    oninput="dictFilter()">
+            </div>
+
+            <div class="dict-filters"><button class="dict-filter-btn active" data-bbdd="all" onclick="dictSetBbdd(this,'all')">Todas</button><button class="dict-filter-btn" data-bbdd="AEMET" onclick="dictSetBbdd(this,'AEMET')">AEMET</button><button class="dict-filter-btn" data-bbdd="Auxiliar" onclick="dictSetBbdd(this,'Auxiliar')">Auxiliar</button><button class="dict-filter-btn" data-bbdd="CNIH" onclick="dictSetBbdd(this,'CNIH')">CNIH</button><button class="dict-filter-btn" data-bbdd="Dataset final" onclick="dictSetBbdd(this,'Dataset final')">Dataset final</button></div>
+            <div id="dict-count" class="dict-count">39 variables</div>
+
+            <table id="dict-table">
+                <tr>
+                    <th>Variable</th><th>BBDD</th><th>Tabla</th>
+                    <th>Tipo</th><th>Descripción</th><th>Uso en modelo</th>
+                </tr>
+                <tbody>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">CE_COD_EVENTO</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_EVENTO</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">String</span></td>
+        <td class="var-desc">Código único del evento de inundación. Formato ES0XX_YYYYMMDD. Clave principal para cruzar todas las tablas CNIH.</td>
+        <td class="var-uso">Clave de join</td>
+    </tr>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">CE_NOMBRE_EVENTO</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_EVENTO</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">String</span></td>
+        <td class="var-desc">Nombre descriptivo del evento (río, localización y año aproximado).</td>
+        <td class="var-uso">Referencia</td>
+    </tr>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">CE_INICIO</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_EVENTO</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Fecha</span></td>
+        <td class="var-desc">Fecha de inicio del evento en formato dd/mm/yyyy. Puede contener &#x27;00&#x27; en día o mes para eventos históricos donde solo se conoce el año.</td>
+        <td class="var-uso">Dimensión temporal</td>
+    </tr>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">CE_DURACION</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_EVENTO</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Integer</span></td>
+        <td class="var-desc">Duración del evento en días.</td>
+        <td class="var-uso">Feature de severidad</td>
+    </tr>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">CE_COD_DEMARCACION</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_EVENTO</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">String</span></td>
+        <td class="var-desc">Código de la demarcación hidrográfica donde ocurrió el evento (p. ej. ES091 = Júcar).</td>
+        <td class="var-uso">Dimensión territorial</td>
+    </tr>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">CE_ORIGEN</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_EVENTO</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Categ.</span></td>
+        <td class="var-desc">Origen del evento: pluvial (lluvia directa), fluvial (desbordamiento de cauce), mixto, marino, etc.</td>
+        <td class="var-uso">Feature categórica</td>
+    </tr>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">CE_MECANISMO</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_EVENTO</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Categ.</span></td>
+        <td class="var-desc">Mecanismo de inundación: escorrentía superficial, desbordamiento, rotura de infraestructura, etc.</td>
+        <td class="var-uso">Feature categórica</td>
+    </tr>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">CE_TIPO</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_EVENTO</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Categ.</span></td>
+        <td class="var-desc">Tipo de inundación según clasificación EU Floods Directive.</td>
+        <td class="var-uso">Feature categórica</td>
+    </tr>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">CE_PRECIPITACION</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_EVENTO</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Float</span></td>
+        <td class="var-desc">Precipitación total registrada durante el evento (mm). Alta tasa de nulos; complementar con AEMET.</td>
+        <td class="var-uso">Feature meteorológica (con nulos)</td>
+    </tr>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">CE_AREA_KM2</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_EVENTO</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Float</span></td>
+        <td class="var-desc">Área afectada por la inundación en km².</td>
+        <td class="var-uso">Feature de extensión</td>
+    </tr>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">CE_AVISO_AEMET</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_EVENTO</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Categ.</span></td>
+        <td class="var-desc">Nivel de aviso meteorológico AEMET activo durante el evento: verde, amarillo, naranja, rojo.</td>
+        <td class="var-uso">Feature de alerta</td>
+    </tr>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">CDEM_INDEMNIZACION_CCS</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_DAÑO_ECONOMICO_MUNICIPIO</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Float</span></td>
+        <td class="var-desc">Indemnización pagada por el Consorcio de Compensación de Seguros (CCS) al municipio por el evento, en euros. Variable objetivo principal del TFM.</td>
+        <td class="var-uso">Variable objetivo (Y)</td>
+    </tr>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">CDEM_TIPO_AFECCION</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_DAÑO_ECONOMICO_MUNICIPIO</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Categ.</span></td>
+        <td class="var-desc">Tipo de bien afectado: viviendas, vehículos, industria/comercio, agrícola, infraestructura pública, etc.</td>
+        <td class="var-uso">Feature categórica / segmentación</td>
+    </tr>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">CDEM_NIVEL_DAÑO</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_DAÑO_ECONOMICO_MUNICIPIO</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Ordinal</span></td>
+        <td class="var-desc">Nivel de daño estimado: sin daño, leve, moderado, grave, muy grave. Escala ordinal.</td>
+        <td class="var-uso">Feature ordinal de severidad</td>
+    </tr>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">CDEM_COD_MUNICIPIO</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_DAÑO_ECONOMICO_MUNICIPIO</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Integer</span></td>
+        <td class="var-desc">Código INE del municipio afectado (formato PPMMM: 2 dígitos provincia + 3 municipio). Clave para cruzar con INE y otras fuentes territoriales.</td>
+        <td class="var-uso">Clave de join territorial</td>
+    </tr>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">CDPM_VICTIMAS</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_DAÑO_PERSONA_MUNICIPIO</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Integer</span></td>
+        <td class="var-desc">Número de víctimas mortales del evento en el municipio.</td>
+        <td class="var-uso">Feature de impacto humano</td>
+    </tr>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">CDPM_EVACUADOS</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_DAÑO_PERSONA_MUNICIPIO</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Integer</span></td>
+        <td class="var-desc">Número de personas evacuadas durante el evento en el municipio.</td>
+        <td class="var-uso">Feature de impacto humano</td>
+    </tr>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">CDPM_RESCATADOS</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_DAÑO_PERSONA_MUNICIPIO</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Integer</span></td>
+        <td class="var-desc">Número de personas rescatadas durante el evento. Alta tasa de nulos en la fuente original.</td>
+        <td class="var-uso">Feature de impacto humano (con nulos)</td>
+    </tr>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">calado_max</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_CALADO_SIGNIFICATIVO</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Float</span></td>
+        <td class="var-desc">Calado máximo registrado durante el evento (metros o cm según fuente). Aproxima la profundidad física de la inundación. Cobertura parcial (~30% eventos).</td>
+        <td class="var-uso">Feature de intensidad física</td>
+    </tr>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">calado_medio</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_CALADO_SIGNIFICATIVO</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Float</span></td>
+        <td class="var-desc">Calado medio de todas las observaciones del evento.</td>
+        <td class="var-uso">Feature de intensidad física</td>
+    </tr>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">caudal_max</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_CAUDAL_PUNTA</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Float</span></td>
+        <td class="var-desc">Caudal punta máximo registrado durante el evento (m³/s). Mide la magnitud hidrológica del desbordamiento.</td>
+        <td class="var-uso">Feature hidrológica</td>
+    </tr>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">periodo_retorno_caudal_max</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_CAUDAL_PUNTA</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Float</span></td>
+        <td class="var-desc">Período de retorno estimado del caudal punta (años). Un valor de 100 indica un evento que estadísticamente ocurre una vez cada 100 años.</td>
+        <td class="var-uso">Feature de rareza del evento</td>
+    </tr>
+    <tr data-bbdd="CNIH">
+        <td class="var-name">evento_en_arpsi</td>
+        <td>CNIH</td>
+        <td><span class="small">CNIH_EVENTO_ARPSI</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Binaria</span></td>
+        <td class="var-desc">Indica si el evento afectó a alguna Área de Riesgo Potencial Significativo de Inundación (ARPSI), zonas oficialmente catalogadas como de alto riesgo por la Directiva Europea de Inundaciones.</td>
+        <td class="var-uso">Feature de riesgo territorial</td>
+    </tr>
+    <tr data-bbdd="AEMET">
+        <td class="var-name">indicativo</td>
+        <td>AEMET</td>
+        <td><span class="small">aemet_consolidado</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">String</span></td>
+        <td class="var-desc">Código identificador único de la estación meteorológica AEMET. Formato alfanumérico (p. ej. 0002I, 3195).</td>
+        <td class="var-uso">Clave de estación</td>
+    </tr>
+    <tr data-bbdd="AEMET">
+        <td class="var-name">fecha</td>
+        <td>AEMET</td>
+        <td><span class="small">aemet_consolidado</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Fecha</span></td>
+        <td class="var-desc">Fecha de la observación meteorológica (diaria). Formato YYYY-MM-DD.</td>
+        <td class="var-uso">Dimensión temporal</td>
+    </tr>
+    <tr data-bbdd="AEMET">
+        <td class="var-name">prec</td>
+        <td>AEMET</td>
+        <td><span class="small">aemet_consolidado</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Float</span></td>
+        <td class="var-desc">Precipitación total del día en milímetros (mm). 0.0 indica día sin lluvia. ~3% de nulos. Variable meteorológica más relevante para el modelo de inundación.</td>
+        <td class="var-uso">Feature meteorológica principal</td>
+    </tr>
+    <tr data-bbdd="AEMET">
+        <td class="var-name">tmed</td>
+        <td>AEMET</td>
+        <td><span class="small">aemet_consolidado</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Float</span></td>
+        <td class="var-desc">Temperatura media del día en grados Celsius (°C). ~3% de nulos.</td>
+        <td class="var-uso">Feature de contexto climático</td>
+    </tr>
+    <tr data-bbdd="AEMET">
+        <td class="var-name">tmax</td>
+        <td>AEMET</td>
+        <td><span class="small">aemet_consolidado</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Float</span></td>
+        <td class="var-desc">Temperatura máxima registrada durante el día (°C). Relevante para análisis de tendencia climática e índice de riesgo de incendio.</td>
+        <td class="var-uso">Feature de extremos térmicos</td>
+    </tr>
+    <tr data-bbdd="AEMET">
+        <td class="var-name">tmin</td>
+        <td>AEMET</td>
+        <td><span class="small">aemet_consolidado</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Float</span></td>
+        <td class="var-desc">Temperatura mínima registrada durante el día (°C).</td>
+        <td class="var-uso">Feature de extremos térmicos</td>
+    </tr>
+    <tr data-bbdd="AEMET">
+        <td class="var-name">racha</td>
+        <td>AEMET</td>
+        <td><span class="small">aemet_consolidado</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Float</span></td>
+        <td class="var-desc">Racha máxima de viento registrada durante el día (km/h). ~20% de nulos estructurales: no todas las estaciones tienen anemómetro. No imputar — tratar como ausencia de sensor.</td>
+        <td class="var-uso">Feature de viento (cobertura parcial)</td>
+    </tr>
+    <tr data-bbdd="AEMET">
+        <td class="var-name">velmedia</td>
+        <td>AEMET</td>
+        <td><span class="small">aemet_consolidado</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Float</span></td>
+        <td class="var-desc">Velocidad media del viento durante el día (km/h). Misma limitación que racha: ~20% de nulos estructurales.</td>
+        <td class="var-uso">Feature de viento (cobertura parcial)</td>
+    </tr>
+    <tr data-bbdd="AEMET">
+        <td class="var-name">pintMax</td>
+        <td>AEMET</td>
+        <td><span class="small">aemet_consolidado</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">String</span></td>
+        <td class="var-desc">Precipitación máxima en 10 minutos (mm). Llega como texto con coma decimal (&#x27;3,6&#x27;) por el formato de exportación de AEMET. Requiere REPLACE(&#x27;,&#x27;,&#x27;.&#x27;) y casteo a float antes de usar. Proxy de convectividad e intensidad extrema.</td>
+        <td class="var-uso">Feature de intensidad de lluvia (requiere casteo)</td>
+    </tr>
+    <tr data-bbdd="AEMET">
+        <td class="var-name">provincia</td>
+        <td>AEMET</td>
+        <td><span class="small">aemet_consolidado</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">String</span></td>
+        <td class="var-desc">Nombre de la provincia de la estación tal como llega en la exportación de AEMET. Contiene variantes de nombre (54 etiquetas para 52 provincias). Normalizar a CPRO con el diccionario MAPEO_PROVINCIA_CPRO antes de cruzar con otras fuentes.</td>
+        <td class="var-uso">Dimensión territorial (requiere normalización)</td>
+    </tr>
+    <tr data-bbdd="AEMET">
+        <td class="var-name">altitud</td>
+        <td>AEMET</td>
+        <td><span class="small">aemet_consolidado</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Integer</span></td>
+        <td class="var-desc">Altitud de la estación meteorológica sobre el nivel del mar (metros). Relevante para la representatividad de las observaciones en provincias con orografía compleja.</td>
+        <td class="var-uso">Metadato de estación</td>
+    </tr>
+    <tr data-bbdd="Auxiliar">
+        <td class="var-name">CPRO</td>
+        <td>Auxiliar</td>
+        <td><span class="small">TAux_Provincias</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Integer</span></td>
+        <td class="var-desc">Código oficial de provincia (INE). Dos dígitos (01–52). Clave de unión entre todas las fuentes del proyecto: CNIH, AEMET, CCS, INE y SNCZI usan este código como referencia territorial común.</td>
+        <td class="var-uso">Clave de join territorial universal</td>
+    </tr>
+    <tr data-bbdd="Dataset final">
+        <td class="var-name">anyo</td>
+        <td>Dataset final</td>
+        <td><span class="small">dataset_integrado</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Integer</span></td>
+        <td class="var-desc">Año del evento o de la observación. Variable temporal de referencia para el análisis de tendencias y para la validación Walk-Forward del modelo.</td>
+        <td class="var-uso">Dimensión temporal / validación</td>
+    </tr>
+    <tr data-bbdd="Dataset final">
+        <td class="var-name">nombre_provincia</td>
+        <td>Dataset final</td>
+        <td><span class="small">dataset_integrado</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">String</span></td>
+        <td class="var-desc">Nombre oficial de la provincia según TAux_Provincias. Resultado de normalizar las etiquetas de texto de cada fuente al CPRO estándar.</td>
+        <td class="var-uso">Etiqueta para visualización</td>
+    </tr>
+    <tr data-bbdd="Dataset final">
+        <td class="var-name">fuente_registro</td>
+        <td>Dataset final</td>
+        <td><span class="small">dataset_integrado</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Categ.</span></td>
+        <td class="var-desc">Bloque analítico de origen del registro dentro del dataset unificado: &#x27;dano_municipio&#x27; (Bloque A), &#x27;personas_municipio&#x27; (Bloque B) o &#x27;dano_evento&#x27; (Bloque C). Permite trazabilidad y filtrado por tipo de información disponible.</td>
+        <td class="var-uso">Trazabilidad / filtrado</td>
+    </tr>
+    <tr data-bbdd="Dataset final">
+        <td class="var-name">nivel_geografico</td>
+        <td>Dataset final</td>
+        <td><span class="small">dataset_integrado</span></td>
+        <td><span class="badge badge-wip" style="font-size:10px">Categ.</span></td>
+        <td class="var-desc">Resolución espacial del registro: &#x27;municipio&#x27; (Bloques A y B) o &#x27;demarcacion&#x27; (Bloque C). Importante tenerlo en cuenta al agregar a nivel provincial.</td>
+        <td class="var-uso">Control de granularidad</td>
+    </tr></tbody>
             </table>
         </div>
     </div>
-    
+    <div id="modelos" class="tabcontent">
+
+        <div class="disclaimer">
+            <div class="disclaimer-icon">⚠️</div>
+            <div class="disclaimer-text">
+                <b>Trabajo en progreso — diseño preliminar.</b>
+                Esta sección recoge el enfoque previsto para los modelos del TFM, pero todavía no está implementada.
+                Las decisiones de arquitectura, features y métricas de evaluación están sujetas a cambios
+                conforme avance la integración de fuentes y el feature engineering.
+                No interpretar como resultados definitivos.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Diseño de modelos</div>
+            
+    <div class="modelo-card">
+        <div class="modelo-num">M1</div>
+        <div class="modelo-info">
+            <div class="modelo-title">Clasificación del riesgo provincial</div>
+            <div class="modelo-desc">Segmentar las provincias españolas por perfil de riesgo catastrófico usando clustering. Sirve como prior para provincias con pocos eventos registrados.</div>
+            <div class="modelo-meta">Fuentes previstas: CNIH, EGIF, CCS, INE · <span class="badge badge-pending">Pendiente</span></div>
+        </div>
+    </div>
+    <div class="modelo-card">
+        <div class="modelo-num">M2</div>
+        <div class="modelo-info">
+            <div class="modelo-title">Predicción del impacto económico</div>
+            <div class="modelo-desc">Estimar la pérdida esperada anual por provincia combinando modelos de frecuencia y severidad. Variable objetivo: indemnización CCS.</div>
+            <div class="modelo-meta">Fuentes previstas: CNIH, AEMET, INE, CCS · <span class="badge badge-pending">Pendiente</span></div>
+        </div>
+    </div>
+    <div class="modelo-card">
+        <div class="modelo-num">M3</div>
+        <div class="modelo-info">
+            <div class="modelo-title">Índice de riesgo provincial</div>
+            <div class="modelo-desc">Construir un índice compuesto normalizado que integre exposición, frecuencia y severidad histórica. Base para el dashboard ciudadano final.</div>
+            <div class="modelo-meta">Fuentes previstas: Dataset integrado final · <span class="badge badge-pending">Pendiente</span></div>
+        </div>
+    </div>
+        </div>
+
+    </div>
     <div id="descargas" class="tabcontent">
         <div class="card">
-            <h2>Descargas</h2>
-            <p>
-            Estos son los archivos preparados para descargar tras los primeros notebooks de análisis, es decir, serían las bases que luego deberemos juntar y a partir de ahí, limpiar y modelar.     </p>
+            <div class="card-title">Archivos disponibles</div>
             
-    <table>
-        <tr>
-            <th>Archivo</th>
-            <th>Descripción</th>
-            <th>Categoría</th>
-            <th>Tamaño</th>
-            <th>Actualización</th>
-            <th>Descarga</th>
-        </tr>
-        
-        <tr>
-            <td><b>Dataset base CNIH</b><br><span class="small">dataset_base_unificado_cnih.csv</span></td>
-            <td>Base unificada de inundaciones a nivel evento–municipio.</td>
-            <td>Inundaciones</td>
-            <td>2.4 MB</td>
-            <td>01/07/2026 01:01</td>
-            <td><a href="downloads/dataset_base_unificado_cnih.csv" download>Descargar</a></td>
-        </tr>
-        
-    </table>
-    
+            <div class="download-item">
+                <div>
+                    <div class="dl-name">Dataset base CNIH <span class="badge badge-wip">Inundaciones</span></div>
+                    <div class="dl-meta">dataset_base_unificado_cnih.csv · 2.4 MB · 01/07/2026 01:01</div>
+                    <div style="font-size:12px;color:#6a8aaa;margin-top:2px">Base unificada de inundaciones a nivel evento–municipio.</div>
+                </div>
+                <a class="dl-btn" href="downloads/dataset_base_unificado_cnih.csv" download>↓ Descargar</a>
+            </div>
         </div>
     </div>
-    
-
 </body>
 </html>
